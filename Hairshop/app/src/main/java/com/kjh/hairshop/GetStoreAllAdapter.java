@@ -31,18 +31,13 @@ import util.Tag;
 
 public class GetStoreAllAdapter extends BaseAdapter {
 
-    ArrayList<StoreVO> list;
+    ArrayList<LocationVO> list;
     MainActivity mainActivity;
-    StoreVO vo;
-
+    LocationVO vo;
     Double my_lat, my_lng;
-    List<Address> address;
-    Geocoder coder;
-    Location locationA, locationB;
 
 
-
-    public GetStoreAllAdapter(ArrayList<StoreVO> list, MainActivity mainActivity, double my_lat, double my_lng) {
+    public GetStoreAllAdapter(ArrayList<LocationVO> list, MainActivity mainActivity, double my_lat, double my_lng) {
         this.list = list;
         this.mainActivity = mainActivity;
         this.my_lat = my_lat;
@@ -68,17 +63,13 @@ public class GetStoreAllAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
 
         MyHolder holder;
-        vo = new StoreVO();
         vo = list.get(i);
+
+        Log.d(Tag.t, "ddddd : " + list.get(i).getPhoto());
 
         if(view == null) {
 
-            locationA = new Location("point A");
-            locationA.setLatitude(my_lat);
-            locationA.setLongitude(my_lng);
-
             view = View.inflate(mainActivity, R.layout.item_hair_list, null);
-            coder = new Geocoder( mainActivity );
 
             holder = new MyHolder();
             holder.imageView = view.findViewById(R.id.item_storeImg);
@@ -87,7 +78,6 @@ public class GetStoreAllAdapter extends BaseAdapter {
             holder.street = view.findViewById(R.id.item_store_street);
 
             new getStoreImg(holder.imageView, vo).execute();
-            new getStoreLocation(holder.street, vo);
 
             view.setTag(holder);
 
@@ -97,6 +87,10 @@ public class GetStoreAllAdapter extends BaseAdapter {
 
         holder.name.setText(list.get(i).getName());
         holder.info.setText(list.get(i).getInfo());
+
+        double distance = list.get(i).getAddress();
+        String store_location = String.format("%.2f", distance / 1000);
+        holder.street.setText(store_location + "KM");
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,9 +109,9 @@ public class GetStoreAllAdapter extends BaseAdapter {
     public class getStoreImg extends AsyncTask<Void,Void, Bitmap> {
 
         ImageView store_image;
-        StoreVO vo;
+        LocationVO vo;
 
-        public getStoreImg(ImageView imageView, StoreVO vo) {
+        public getStoreImg(ImageView imageView, LocationVO vo) {
             this.store_image = imageView;
             this.vo = vo;
         }
@@ -126,7 +120,8 @@ public class GetStoreAllAdapter extends BaseAdapter {
         protected Bitmap doInBackground(Void... voids) {
 
             URL url = null;
-            String photo = vo.getPhoto1();
+            String photo = vo.getPhoto();
+            Log.d(Tag.t, "dddsfs : "  + photo);
             Bitmap bitmap = null;
 
             try {
@@ -151,40 +146,6 @@ public class GetStoreAllAdapter extends BaseAdapter {
         protected void onPostExecute(Bitmap bitmap) {
 
             store_image.setImageBitmap(bitmap);
-        }
-    }
-
-
-    public class getStoreLocation {
-
-        TextView location;
-        StoreVO vo;
-
-        public getStoreLocation(TextView location, StoreVO vo) {
-            this.location = location;
-            this.vo = vo;
-
-            String store_street = vo.getAddress1();
-
-            try {
-                address = coder.getFromLocationName( store_street, 5 );
-                Address store_address = address.get(0);
-
-                Double store_lat = store_address.getLatitude();
-                Double store_lng = store_address.getLongitude();
-
-                locationB = new Location("point B");
-                locationB.setLatitude(store_lat);
-                locationB.setLongitude(store_lng);
-
-                double distance = locationA.distanceTo(locationB);
-                String store_location = String.format("%.2f", distance / 1000);
-
-                location.setText(store_location + "KM");
-
-            } catch (Exception e) {
-                Log.e( "MY", e.toString() );
-            }
         }
     }
 

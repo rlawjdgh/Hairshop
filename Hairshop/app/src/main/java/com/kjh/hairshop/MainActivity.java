@@ -40,6 +40,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import util.IpInfo;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     double my_lat, my_lng;
 
     StoreVO vo;
+    LocationVO loc_vo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
     public class getAllStore extends AsyncTask<Void, Void, ArrayList<StoreVO>> {
 
         ArrayList<StoreVO> list;
+        ArrayList<LocationVO> loc_list;
 
         @Override
         protected ArrayList<StoreVO> doInBackground(Void... voids) {
@@ -195,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
 
             progressDialog.dismiss();
 
+            loc_list = new ArrayList<>();
+
             for(int i = 0; i < list.size(); i++) {
 
                 try {
@@ -211,12 +216,26 @@ public class MainActivity extends AppCompatActivity {
                     mapView.addPOIItem(mapPOIItem);
                     mapView.setPOIItemEventListener(click);
 
+                    Location locationA = new Location("pointA");
+                    locationA.setLatitude(my_lat);
+                    locationA.setLongitude(my_lng);
+
+                    Location locationB = new Location("point B");
+                    locationB.setLatitude(store_address.getLatitude());
+                    locationB.setLongitude(store_address.getLongitude());
+
+                    double distance = locationA.distanceTo(locationB);
+
+                    loc_vo = new LocationVO(list.get(i).getNickName_idx(), list.get(i).getName(), distance, list.get(i).getPhoto1(), list.get(i).getInfo());
+                    loc_list.add(loc_vo);
+                    Collections.sort(loc_list);
+
                 } catch (Exception e) {
                     Log.i( "MY", e.toString() );
                 }
             }
 
-            getStoreAllAdapter = new GetStoreAllAdapter(storeVOS, MainActivity.this, my_lat, my_lng);
+            getStoreAllAdapter = new GetStoreAllAdapter(loc_list, MainActivity.this, my_lat, my_lng);
             listView.setAdapter(getStoreAllAdapter);
         }
     }
@@ -225,12 +244,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onPOIItemSelected(MapView mapView, final MapPOIItem mapPOIItem) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("매장 정보를 보시겠습니까?");
+            if(mapPOIItem.getTag() != 0) {
 
-            builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("매장 정보를 보시겠습니까?");
+
+                builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
                         Intent intent = new Intent(MainActivity.this, StoreInfoActivity.class);
                         intent.putExtra("store_idx", mapPOIItem.getTag());
@@ -239,19 +260,23 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 })
-                .setPositiveButton("아니요", null);
-            builder.show();
+                        .setPositiveButton("아니요", null);
+                builder.show();
+            }
         }
 
         @Override
         public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
 
-            Double latitude = mapPOIItem.getMapPoint().getMapPointGeoCoord().latitude;
-            Double longitude = mapPOIItem.getMapPoint().getMapPointGeoCoord().longitude;
+            if(mapPOIItem.getTag() != 0) {
 
-            String url = "daummaps://route?sp="+my_lat+","+my_lng+"&ep="+latitude+","+longitude+"&by=PUBLICTRANSIT";
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
+                Double latitude = mapPOIItem.getMapPoint().getMapPointGeoCoord().latitude;
+                Double longitude = mapPOIItem.getMapPoint().getMapPointGeoCoord().longitude;
+
+                String url = "daummaps://route?sp="+my_lat+","+my_lng+"&ep="+latitude+","+longitude+"&by=PUBLICTRANSIT";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
         }
 
         @Override

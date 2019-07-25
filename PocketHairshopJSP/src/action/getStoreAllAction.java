@@ -51,8 +51,7 @@ public class getStoreAllAction extends HttpServlet {
 		} 
 		
 		arr += "]";
-		 
-		System.out.println(arr);
+		  
 		response.setCharacterEncoding("UTF-8");  
 		response.setContentType("text/html; charset=UTF-8"); 
 		response.getWriter().println(arr);  

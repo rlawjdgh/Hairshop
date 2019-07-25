@@ -23,7 +23,7 @@ public class UploadStorePhotoAction extends HttpServlet {
 		
 		//현재 WebApplication을 관리하는 객체 ServletContext
 		ServletContext application = request.getServletContext();
-		String real_path = application.getRealPath( web_path );
+		String real_path = application.getRealPath( web_path ); 
 		
 		int max_size = 1024 * 1024 * 100; //최대 업로드 용량 : 100MB
 		

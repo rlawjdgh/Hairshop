@@ -12,7 +12,6 @@ public class StoreVO {
     private String photo2;
     private String info;
 
-
     public int getNickName_idx() {
         return nickName_idx;
     }
