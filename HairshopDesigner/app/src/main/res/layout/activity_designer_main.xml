@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DesignerMainActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FFFF00">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/face" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Designer"
+                android:textSize="19dp"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView_nickName"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingTop="30dp"
+        android:layout_above="@id/layout_btns"
+        android:textSize="22dp"
+        android:gravity="center"
+        android:textColor="#000" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/layout_btns">
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="5dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/btn_store"/>
+
+                <Button
+                    android:id="@+id/btn_store"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/btn_shape1"
+                    android:paddingTop="75dp"
+                    android:text="매장 정보"
+                    android:textSize="15dp"
+                    android:textColor="#757575"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/btn_surgery"/>
+
+                <Button
+                    android:id="@+id/btn_surgery"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/btn_shape1"
+                    android:paddingTop="75dp"
+                    android:text="시술 / 판매 상품"
+                    android:textColor="#757575"
+                    android:textSize="15dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_centerVertical="true"
+            android:layout_below="@id/linear1"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="5dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/btn_employee"/>
+
+                <Button
+                    android:id="@+id/btn_employee"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/btn_shape1"
+                    android:paddingTop="75dp"
+                    android:text="스텝"
+                    android:textSize="15dp"
+                    android:textColor="#757575"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="15dp"
+                    android:src="@drawable/btn_reservation"/>
+
+                <Button
+                    android:id="@+id/btn_reservation"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/btn_shape1"
+                    android:paddingTop="75dp"
+                    android:text="예약 / 댓글 관리"
+                    android:textColor="#757575"
+                    android:textSize="15dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_btns"
+        android:gravity="center"
+        android:text="로그아웃"
+        android:textSize="20dp"
+        android:textColor="#000"
+        android:clickable="true"
+        android:layout_marginTop="-5dp" />
+
+</RelativeLayout>

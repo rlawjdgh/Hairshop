@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DesignerSurgeryActivity"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FFFF00">
+
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_back"
+            android:layout_marginTop="5dp"/>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/face" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Designer"
+                android:textSize="19dp"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="시술 / 판매 상품"
+        android:textColor="#000"
+        android:textSize="20dp" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="컷"
+        android:textSize="30dp"
+        android:layout_weight="1"
+        android:paddingLeft="20dp"
+        android:textColor="#c0392b"
+        android:id="@+id/textView_cut"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="펌"
+           android:textSize="30dp"
+           android:layout_weight="1"
+           android:id="@+id/textView_perm"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="컬러"
+           android:textSize="30dp"
+           android:layout_weight="1"
+           android:id="@+id/textView_chlorination"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="클리닉"
+           android:textSize="30dp"
+           android:layout_weight="1"
+           android:id="@+id/textView_clinic"/>
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="제품"
+           android:textSize="30dp"
+           android:layout_weight="1"
+           android:id="@+id/textView_product"/>
+
+   </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:id="@+id/listView_surgery"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="506dp"
+        android:text="해당 상품을 추가하지 않았습니다"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:visibility="gone"
+        android:id="@+id/textView_noSurgery"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:text="추가하기"
+        android:background="#FFFF00"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/button_add"/>
+
+</LinearLayout>

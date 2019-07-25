@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="store">
+
+	<insert id="insert_store" parameterType="vo.StoreVO">
+		insert into store ( nickName_idx, name, address1, address2, tel, openClose, info ) values ( #{nickName_idx}, #{ name }, #{ address1 }, #{ address2 }, #{ tel }, #{openClose}, #{ info } )
+	</insert>   
+	 
+	<select id="select_idx" parameterType="int" resultType="vo.StoreVO">
+		select * from store where nickName_idx = #{ nickName_idx }  
+	</select> 
+	
+	<update id="update_photo1" parameterType="vo.StoreVO">
+		update store set photo1 = #{ photo1 } where nickName_idx = #{ nickName_idx }
+	</update> 
+	
+	<update id="update_photo2" parameterType="vo.StoreVO">
+		update store set photo2 = #{ photo2 } where nickName_idx = #{ nickName_idx }
+	</update>  
+	
+	<select id="store_info" parameterType="int" resultType="vo.StoreVO">
+		select * from store where nickName_idx = #{ nickName_idx }
+	</select> 
+	
+	<update id="change_store" parameterType="vo.StoreVO">
+		update store set name = #{name}, address1 = #{address1}, address2 = #{address2}, tel = #{tel}, openClose = #{openClose}, info = #{info} where nickName_idx = #{ nickName_idx }
+	</update>  
+	
+	<select id="get_storeAll" resultType="vo.StoreVO">
+		select * from store
+	</select> 
+	  
+</mapper>  

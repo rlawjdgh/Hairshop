@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="surgery">
+ 
+	<insert id="insert_surgery" parameterType="vo.SurgeryVO">
+		insert into surgery ( surgery_idx, nickName_idx, category, name, price ) values ( surgery_seq.nextval, #{nickName_idx}, #{category}, #{name}, #{price} )
+	</insert>
+	
+	<select id="get_surgery" resultType="vo.SurgeryVO">
+		select * from surgery where nickName_idx = #{nickName_idx} and category = #{category} 
+	</select> 
+
+	<delete id="delete_surgery">
+		delete from surgery where surgery_idx=#{surgery_idx}
+	</delete>
+	
+	<update id="update_photo" parameterType="vo.SurgeryVO">
+		update surgery set photo = #{ photo } where nickName_idx = #{ nickName_idx } and category = #{category} and name = #{name} 
+	</update>
+
+</mapper>      

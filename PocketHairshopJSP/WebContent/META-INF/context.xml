@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+	<!--  DB에 접근하고자 하는 정보들을 다음과 같이 참조파일 형태로 정의해놓고 가져다가 쓰는 것 을 JNDI(Java Naming Directory Interface)라고 한다. -->
+	<Resource 
+	        auth="Container" 
+      		name="jdbc/oracle_test"
+      		type="javax.sql.DataSource"
+      		driverClassName="oracle.jdbc.driver.OracleDriver"
+      		factory="org.apache.commons.dbcp.BasicDataSourceFactory"
+      		url="jdbc:oracle:thin:@localhost:1521:xe"
+      		username="POCKETHAIR" password="12345" 
+      		maxActive="20" maxIdle="10" maxWait="1"/>
+      		<!--  maxActive : 최대 연결 수  -->
+      		<!--  최대 접속자 수를 20명으로 미리 준비해두면, 20명은 대기시간 없이 DB를 사용하고 접근 할 수 있다. 
+      			 이를 DBCP( Database Connection Pool ) 개념이라고 한다. -->
+</Context>  

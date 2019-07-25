@@ -1,0 +1,44 @@
+
+create table member( 	
+ 	idx number(15) primary key,
+ 	nickName varchar2(20),
+ 	email varchar2(50),
+ 	division number(2)
+);
+
+create table store(
+	nickName_idx number(15) not null,
+	name varchar2(20),
+	address1 varchar2(50),
+	address2 varchar2(50),
+	tel varchar2(50),
+	openClose varchar2(50),
+	photo1 varchar2(50),
+ 	photo2 varchar2(50),
+ 	info CLOB
+); 
+
+CREATE sequence surgery_seq
+ 
+create table surgery (
+	surgery_idx number(15) primary key, 
+	nickName_idx number(15), 
+	category number(5),
+	name varchar2(50),
+	price number(20),
+	photo varchar2(50)
+);
+
+
+CREATE sequence staff_seq
+
+create table staff (
+	staff_idx number(10) primary key,
+	nickName_idx number(15),
+	name varchar2(50),
+	info varchar2(50),
+    grade varchar2(50),
+	photo varchar2(50)
+);
+
+

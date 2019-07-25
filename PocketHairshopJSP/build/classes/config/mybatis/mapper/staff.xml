@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="staff">
+
+	<insert id="insert_staff" parameterType="vo.StaffVO">
+		insert into staff ( staff_idx, nickName_idx, name, info, grade ) values ( staff_seq.nextval, #{nickName_idx}, #{name}, #{info}, #{grade} )
+	</insert>  
+	
+	<update id="update_photo" parameterType="vo.StaffVO">
+		update staff set photo = #{ photo } where nickName_idx = #{ nickName_idx } and name = #{name} and grade = #{grade} 
+	</update>
+	
+	<select id="get_staff" resultType="vo.StaffVO">
+		select * from staff where nickName_idx = #{nickName_idx} 
+	</select> 
+	
+	<delete id="delete_staff">
+		delete from staff where staff_idx=#{staff_idx}
+	</delete>
+
+</mapper> 
