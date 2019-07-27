@@ -57,10 +57,7 @@ public class ItemStaffAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
 
         MyHolder holder;
-        vo = new StaffVO();
         vo = list.get(i);
-
-        Log.d(Tag.t, "" + list.get(i).getPhoto());
 
         if(view == null) {
 

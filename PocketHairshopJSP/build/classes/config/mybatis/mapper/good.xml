@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="good">
+
+	<select id="check_good" resultType="vo.GoodVO">
+		select * from good where login_idx = #{login_idx} and store_idx = #{store_idx}
+	</select>
+	
+	<insert id="insert_StoreGood" parameterType="vo.GoodVO"> 
+		insert into good values ( #{login_idx}, #{store_idx} ) 
+	</insert>  
+	
+	<delete id="remove_StoreGood">
+		delete from good where login_idx = #{login_idx} and store_idx = #{store_idx}
+	</delete>
+
+</mapper>     

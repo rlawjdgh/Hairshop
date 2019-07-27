@@ -14,15 +14,14 @@ import java.net.URL;
 import util.IpInfo;
 import util.Tag;
 
-public class LoginParser {
+public class CheckStoreGoodParser {
 
-    public JSONObject checkMember(String idx) {
-        Log.d(Tag.t, "LoginParser");
+    public String checkStoreGood(int number, int login_idx, int store_idx) {
 
-        JSONObject jsonObject = null;
+        String parameter = "number=" + number + "&login_idx=" + login_idx + "&store_idx=" + store_idx;
+        String serverip = IpInfo.SERVERIP + "storeGood.do";
 
-        String parameter = "idx=" + idx;
-        String serverip = IpInfo.SERVERIP + "checkMember.do";
+        String result = "";
 
         try {
             String str;
@@ -37,7 +36,6 @@ public class LoginParser {
             osw.write( parameter );
             osw.flush();
 
-
             if( conn.getResponseCode() == conn.HTTP_OK ) {
 
                 InputStreamReader isr = new InputStreamReader(conn.getInputStream(), "UTF-8");
@@ -49,14 +47,15 @@ public class LoginParser {
                 }
 
                 JSONArray jsonArray = new JSONArray(buffer.toString());
-                jsonObject = jsonArray.getJSONObject(0);
-                Log.d(Tag.t, "PARSER jsonobject : " + jsonObject);
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                result = jsonObject.getString("result");
             }
 
         } catch (Exception e) {
-            Log.i( "MY", e.toString());
+            Log.i( "MY", e.toString() );
         }
 
-        return jsonObject;
+        return result;
     }
 }

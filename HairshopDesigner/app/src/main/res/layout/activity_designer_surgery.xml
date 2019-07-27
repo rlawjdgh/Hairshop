@@ -63,7 +63,6 @@
         android:textSize="30dp"
         android:layout_weight="1"
         android:paddingLeft="20dp"
-        android:textColor="#c0392b"
         android:id="@+id/textView_cut"/>
 
        <TextView

@@ -27,6 +27,7 @@ public class getStoreAllAction extends HttpServlet {
 		String address2;
 		String photo1;
 		String info;
+		int good;
 		
 		StoreDAO dao = StoreDAO.getInstance();
 		List<StoreVO> list = dao.getStoreAll();
@@ -40,18 +41,19 @@ public class getStoreAllAction extends HttpServlet {
 			address2 = list.get(i).getAddress2();
 			photo1 = list.get(i).getPhoto1();
 			info = list.get(i).getInfo();
+			good = list.get(i).getGood();
 			
-			String str = String.format("{'nickName_idx':'%d', 'name':'%s', 'address1':'%s', 'photo1':'%s', 'info':'%s'}", nickName_idx, name, address1, photo1, info);
+			String str = String.format("{'nickName_idx':'%d', 'name':'%s', 'address1':'%s', 'photo1':'%s', 'info':'%s', 'good':'%s'}", nickName_idx, name, address1, photo1, info, good);
 			arr += str;
 			
 			if(i != list.size() -1) {  
-				arr += ", ";  
+				arr += ", ";   
 			}
 			 
 		} 
 		
 		arr += "]";
-		  
+		
 		response.setCharacterEncoding("UTF-8");  
 		response.setContentType("text/html; charset=UTF-8"); 
 		response.getWriter().println(arr);  

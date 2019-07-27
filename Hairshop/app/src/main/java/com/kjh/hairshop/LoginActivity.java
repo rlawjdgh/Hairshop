@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                     nickName = userProfile.getNickname();
                     email = userProfile.getEmail();
 
-                    new CheckMember().execute(String.valueOf(userProfile.getId()));
+                    new CheckMemberAsync().execute(String.valueOf(userProfile.getId()));
                 }
             });
         }
@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public class CheckMember extends AsyncTask<String, Void, JSONObject> {
+    public class CheckMemberAsync extends AsyncTask<String, Void, JSONObject> {
 
         @Override
         protected JSONObject doInBackground(String... strings) {
@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
     public class InsertMemberAsync extends AsyncTask<Object, Void, String> {
 
         String parameter;
-        String serverip = IpInfo.SERVERIP + "InsertMember.do";
+        String serverip = IpInfo.SERVERIP + "insertMember.do";
 
         String result = "";
         String nickName = "";

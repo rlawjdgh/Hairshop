@@ -92,4 +92,23 @@ public class StoreDAO {
 		return list;
 	}
 	
+	public int updateGood(StoreVO vo) {
+		
+		SqlSession sqlSession = factory.openSession( true );
+		int result = sqlSession.update("store.update_good", vo); 
+		sqlSession.close(); 
+		
+		return result; 
+		
+	}
+	
+	public int removeGood(StoreVO vo) {
+		
+		SqlSession sqlSession = factory.openSession( true );
+		int result = sqlSession.update("store.remove_good", vo); 
+		sqlSession.close(); 
+		
+		return result;   
+	}
+	
 }

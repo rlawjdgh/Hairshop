@@ -7,13 +7,15 @@ public class LocationVO implements Comparable<LocationVO> {
     private Double address;
     private String photo;
     private String info;
+    private int good;
 
-    LocationVO(int nickName_idx, String name, Double address, String photo, String info) {
+    LocationVO(int nickName_idx, String name, Double address, String photo, String info, int good) {
         setNickName_idx(nickName_idx);
         setName(name);
         setAddress(address);
         setPhoto(photo);
         setInfo(info);
+        setGood(good);
     }
 
     @Override
@@ -60,5 +62,13 @@ public class LocationVO implements Comparable<LocationVO> {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public int getGood() {
+        return good;
+    }
+
+    public void setGood(int good) {
+        this.good = good;
     }
 }

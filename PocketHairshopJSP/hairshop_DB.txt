@@ -15,8 +15,9 @@ create table store(
 	openClose varchar2(50),
 	photo1 varchar2(50),
  	photo2 varchar2(50),
- 	info CLOB
-); 
+ 	info CLOB,
+ 	good number(10)
+);  
 
 CREATE sequence surgery_seq
  
@@ -39,6 +40,12 @@ create table staff (
 	info varchar2(50),
     grade varchar2(50),
 	photo varchar2(50)
+);
+
+
+create table good (
+	login_idx number(15), 
+	store_idx number(15)
 );
 
 

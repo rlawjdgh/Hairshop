@@ -18,10 +18,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ListView;
 
 import com.gun0912.tedpermission.PermissionListener;
@@ -44,7 +41,6 @@ import java.util.Collections;
 import java.util.List;
 
 import util.IpInfo;
-import util.Tag;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         mapView = findViewById(R.id.map_view);
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 500, locationListener);
+
     }
 
     LocationListener locationListener = new LocationListener() {
@@ -113,7 +110,9 @@ public class MainActivity extends AppCompatActivity {
             mapPOIItem.setMarkerType(MapPOIItem.MarkerType.BluePin);
             mapView.addPOIItem(mapPOIItem);
 
-            new getAllStore().execute();
+            new getAllStoreAsync().execute();
+            progressDialog.dismiss();
+
         }
 
         @Override
@@ -132,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public class getAllStore extends AsyncTask<Void, Void, ArrayList<StoreVO>> {
+    public class getAllStoreAsync extends AsyncTask<Void, Void, ArrayList<StoreVO>> {
 
         ArrayList<StoreVO> list;
         ArrayList<LocationVO> loc_list;
@@ -182,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                         vo.setAddress1(jsonObject.getString("address1"));
                         vo.setPhoto1(jsonObject.getString("photo1"));
                         vo.setInfo(jsonObject.getString("info"));
+                        vo.setGood(jsonObject.getInt("good"));
 
                         list.add(vo);
                     }
@@ -196,14 +196,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<StoreVO> storeVOS) {
 
-            progressDialog.dismiss();
-
             loc_list = new ArrayList<>();
 
-            for(int i = 0; i < list.size(); i++) {
+            for(int i = 0; i < storeVOS.size(); i++) {
 
                 try {
-                    address = coder.getFromLocationName( list.get(i).getAddress1(), 5 );
+                    address = coder.getFromLocationName( storeVOS.get(i).getAddress1(), 5 );
                     Address store_address = address.get(0);
 
                     storePoint = MapPoint.mapPointWithGeoCoord(store_address.getLatitude(), store_address.getLongitude());
@@ -226,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 
                     double distance = locationA.distanceTo(locationB);
 
-                    loc_vo = new LocationVO(list.get(i).getNickName_idx(), list.get(i).getName(), distance, list.get(i).getPhoto1(), list.get(i).getInfo());
+                    loc_vo = new LocationVO(list.get(i).getNickName_idx(), list.get(i).getName(), distance, list.get(i).getPhoto1(), list.get(i).getInfo(), list.get(i).getGood());
                     loc_list.add(loc_vo);
                     Collections.sort(loc_list);
 
@@ -236,6 +234,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             getStoreAllAdapter = new GetStoreAllAdapter(loc_list, MainActivity.this, my_lat, my_lng);
+            getStoreAllAdapter.notifyDataSetChanged();
             listView.setAdapter(getStoreAllAdapter);
         }
     }
@@ -290,7 +289,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        new getAllStoreAsync().execute();
+    }
 
     PermissionListener permissionListener = new PermissionListener() {
         @Override

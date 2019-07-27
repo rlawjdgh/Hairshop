@@ -1,47 +1,33 @@
 package com.kjh.hairshop;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.media.ExifInterface;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import net.daum.mf.map.api.MapPOIItem;
-import net.daum.mf.map.api.MapPoint;
-
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import util.IpInfo;
-import util.Tag;
 
-public class GetStoreAllAdapter extends BaseAdapter {
+public class GetStoreStaffAdapter extends BaseAdapter {
 
-    ArrayList<LocationVO> list;
-    MainActivity mainActivity;
-    LocationVO vo;
-    Double my_lat, my_lng;
+    StoreInfoActivity storeInfoActivity;
+    ArrayList<StaffVO> list;
+    StaffVO vo;
 
-
-    public GetStoreAllAdapter(ArrayList<LocationVO> list, MainActivity mainActivity, double my_lat, double my_lng) {
+    public GetStoreStaffAdapter(StoreInfoActivity storeInfoActivity, ArrayList<StaffVO> list) {
+        this.storeInfoActivity = storeInfoActivity;
         this.list = list;
-        this.mainActivity = mainActivity;
-        this.my_lat = my_lat;
-        this.my_lng = my_lng;
     }
 
     @Override
@@ -67,16 +53,15 @@ public class GetStoreAllAdapter extends BaseAdapter {
 
         if(view == null) {
 
-            view = View.inflate(mainActivity, R.layout.item_hair_list, null);
+            view = View.inflate(storeInfoActivity, R.layout.item_store_staff, null);
 
             holder = new MyHolder();
-            holder.imageView = view.findViewById(R.id.item_storeImg);
-            holder.name = view.findViewById(R.id.item_store_name);
-            holder.info = view.findViewById(R.id.item_store_info);
-            holder.street = view.findViewById(R.id.item_store_street);
-            holder.good = view.findViewById(R.id.textView_store_good);
+            holder.imageView = view.findViewById(R.id.item_storeInfo_img);
+            holder.name = view.findViewById(R.id.item_storeInfo_name);
+            holder.grade = view.findViewById(R.id.item_storeInfo_grade);
+            holder.info = view.findViewById(R.id.item_storeInfo_info);
 
-            new getStoreImg(holder.imageView, vo).execute();
+            new getItemStaffImg(holder.imageView, vo).execute();
 
             view.setTag(holder);
 
@@ -85,34 +70,39 @@ public class GetStoreAllAdapter extends BaseAdapter {
         }
 
         holder.name.setText(list.get(i).getName());
+        holder.grade.setText(" (" + list.get(i).getGrade() + ")");
         holder.info.setText(list.get(i).getInfo());
-        holder.good.setText("" + list.get(i).getGood());
-
-        double distance = list.get(i).getAddress();
-        String store_location = String.format("%.2f", distance / 1000);
-        holder.street.setText(store_location + "KM");
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(mainActivity, StoreInfoActivity.class);
-                intent.putExtra("store_idx", list.get(i).getNickName_idx());
-                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
-                mainActivity.startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(storeInfoActivity);
+                builder.setTitle("'" + list.get(i).getName() + "' 으로 예약하시겠습니까?");
+
+                builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // 예약 페이지
+
+                    }
+                })
+                .setPositiveButton("아니요", null);
+                builder.show();
             }
         });
 
         return view;
     }
 
-    public class getStoreImg extends AsyncTask<Void,Void, Bitmap> {
+    public class getItemStaffImg extends AsyncTask<Void, Void, Bitmap> {
 
-        ImageView store_image;
-        LocationVO vo;
+        ImageView imageView;
+        StaffVO vo;
 
-        public getStoreImg(ImageView imageView, LocationVO vo) {
-            this.store_image = imageView;
+        public getItemStaffImg(ImageView imageView, StaffVO vo) {
+            this.imageView = imageView;
             this.vo = vo;
         }
 
@@ -124,7 +114,7 @@ public class GetStoreAllAdapter extends BaseAdapter {
             Bitmap bitmap = null;
 
             try {
-                url = new URL(IpInfo.SERVERIP + "store_photo/" + photo);
+                url = new URL(IpInfo.SERVERIP + "staff_photo/" + photo);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.connect();
 
@@ -144,15 +134,14 @@ public class GetStoreAllAdapter extends BaseAdapter {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
 
-            store_image.setImageBitmap(bitmap);
+            imageView.setImageBitmap(bitmap);
         }
     }
 
     class MyHolder {
         ImageView imageView;
         TextView name;
+        TextView grade;
         TextView info;
-        TextView street;
-        TextView good;
     }
 }

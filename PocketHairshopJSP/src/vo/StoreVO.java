@@ -11,6 +11,7 @@ public class StoreVO {
 	private String photo1;
 	private String photo2;
 	private String info;
+	private int good;
 	
 	
 	public int getNickName_idx() {
@@ -68,6 +69,12 @@ public class StoreVO {
 	}
 	public void setInfo(String info) {
 		this.info = info;
+	}
+	public int getGood() {
+		return good;
+	}
+	public void setGood(int good) {
+		this.good = good;
 	}
 	
 	

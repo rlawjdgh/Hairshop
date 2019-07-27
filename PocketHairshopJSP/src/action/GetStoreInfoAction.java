@@ -56,7 +56,7 @@ public class GetStoreInfoAction extends HttpServlet {
 				photo2 = vo.getPhoto2();
 				info = vo.getInfo(); 
 				
-				String str = String.format("[{'name':'%s', 'address1':'%s', 'address2':'%s', 'tel':'%s', 'openClose':'%s', 'photo1':'%s', 'photo2':'%s', 'info':'%s', 'result':'%s'}]", name, address1, address2, tel, openClose, photo1, photo2, info, result);
+				String str = String.format("[{'nickName_idx':'%d', 'name':'%s', 'address1':'%s', 'address2':'%s', 'tel':'%s', 'openClose':'%s', 'photo1':'%s', 'photo2':'%s', 'info':'%s', 'result':'%s'}]", vo.getNickName_idx(), name, address1, address2, tel, openClose, photo1, photo2, info, result);
 				
 				response.setCharacterEncoding("UTF-8"); 
 				response.setContentType("text/html; charset=UTF-8");

@@ -17,5 +17,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="config/mybatis/mapper/store.xml" />
 		<mapper resource="config/mybatis/mapper/surgery.xml" />
 		<mapper resource="config/mybatis/mapper/staff.xml" /> 
-	</mappers>
+		<mapper resource="config/mybatis/mapper/good.xml" /> 
+	</mappers>  
 </configuration> 

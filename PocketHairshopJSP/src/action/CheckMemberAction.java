@@ -26,7 +26,7 @@ public class CheckMemberAction extends HttpServlet {
 		String idx = request.getParameter("idx");
 		
 		if(idx != null) {
-			
+			 
 			MemberDAO dao = MemberDAO.getInstance();
 			MemberVO vo = dao.selectMember(Integer.parseInt(idx));
 			

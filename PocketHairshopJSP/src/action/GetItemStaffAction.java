@@ -36,9 +36,7 @@ public class GetItemStaffAction extends HttpServlet {
 				String arr = "[";
 				 
 				for(int i = 0 ; i < list.size(); i++) {
-					StaffVO json = list.get(i); 
-					
-					System.out.println(json.getStaff_idx()); 
+					StaffVO json = list.get(i);  
 					 
 					String str = String.format("{'staff_idx':'%d', 'nickName_idx':'%d', 'name':'%s', 'info':'%s', 'grade':'%s', 'photo':'%s'}", json.getStaff_idx(), json.getNickName_idx(), json.getName(), json.getInfo(), json.getGrade(), json.getPhoto());
 					arr += str;
@@ -49,8 +47,7 @@ public class GetItemStaffAction extends HttpServlet {
 				}   
 				
 				arr += "]";
-				
-				System.out.println(arr);
+			 
 				response.setCharacterEncoding("UTF-8");  
 				response.setContentType("text/html; charset=UTF-8"); 
 				response.getWriter().println(arr);   

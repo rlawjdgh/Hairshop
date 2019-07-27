@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="store">
 
 	<insert id="insert_store" parameterType="vo.StoreVO">
-		insert into store ( nickName_idx, name, address1, address2, tel, openClose, info ) values ( #{nickName_idx}, #{ name }, #{ address1 }, #{ address2 }, #{ tel }, #{openClose}, #{ info } )
+		insert into store ( nickName_idx, name, address1, address2, tel, openClose, info, good ) values ( #{nickName_idx}, #{ name }, #{ address1 }, #{ address2 }, #{ tel }, #{openClose}, #{ info }, 0 )
 	</insert>   
 	 
 	<select id="select_idx" parameterType="int" resultType="vo.StoreVO">
@@ -32,4 +32,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from store
 	</select> 
 	  
+	<update id="update_good" parameterType="vo.StoreVO"> 
+		update store set good = #{ good } where nickName_idx = #{ nickName_idx }
+	</update>
+	 
+	<update id="remove_good" parameterType="vo.StoreVO"> 
+		update store set good = #{ good } where nickName_idx = #{ nickName_idx }
+	</update>
+	
 </mapper>  
