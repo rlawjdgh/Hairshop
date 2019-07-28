@@ -2,6 +2,7 @@ package com.kjh.hairshop;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,6 +35,7 @@ public class StoreInfoActivity extends AppCompatActivity {
     TextView tv_storeInfo_name, tv_storeInfo_staff;
     Button btn_storeLike, btn_storeInfo;
     GridView gridView;
+    ViewPager viewPager;
     Intent intent;
 
     GetStoreStaffAdapter getStoreStaffAdapter;
@@ -53,6 +55,7 @@ public class StoreInfoActivity extends AppCompatActivity {
         btn_storeInfo = findViewById(R.id.button_storeInfo_info);
         tv_storeInfo_name = findViewById(R.id.textView_storeInfo_name);
         tv_storeInfo_staff = findViewById(R.id.textView_storeInfo_staff);
+        viewPager = findViewById(R.id.view_pager);
         gridView = findViewById(R.id.gridView_storeInfo);
 
         checkStoreGoodParser = new CheckStoreGoodParser();
@@ -144,8 +147,11 @@ public class StoreInfoActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(StoreVO storeVO) {
-            tv_storeInfo_name.setText(storeVO.getName());
+        protected void onPostExecute(StoreVO storeVOS) {
+            tv_storeInfo_name.setText(storeVOS.getName());
+
+            viewPager.setAdapter(new StoreImgPagerAdapter(getSupportFragmentManager(), storeVOS.getPhoto1(), storeVOS.getPhoto2()));
+            viewPager.setCurrentItem(0);
 
             number = 0;
             new StoreGoodAsync().execute(number);

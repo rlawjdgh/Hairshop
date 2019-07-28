@@ -78,7 +78,7 @@ public class GetStoreStaffAdapter extends BaseAdapter {
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(storeInfoActivity);
-                builder.setTitle("'" + list.get(i).getName() + "' 으로 예약하시겠습니까?");
+                builder.setTitle("예약하시겠습니까?");
 
                 builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
                     @Override
