@@ -6,6 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -38,6 +41,7 @@ public class StoreInfoActivity extends AppCompatActivity {
     ViewPager viewPager;
     Intent intent;
 
+    Bitmap img1, img2;
     GetStoreStaffAdapter getStoreStaffAdapter;
     CheckStoreGoodParser checkStoreGoodParser;
     StaffVO staffVO;
@@ -85,6 +89,18 @@ public class StoreInfoActivity extends AppCompatActivity {
                     break;
 
                 case R.id.button_storeInfo_info:
+
+                    intent = new Intent(StoreInfoActivity.this, StoreMoreInfoActivity.class);
+                    intent.putExtra("address1", storeVO.getAddress1());
+                    intent.putExtra("address2", storeVO.getAddress2());
+                    intent.putExtra("tel", storeVO.getTel());
+                    intent.putExtra("openClose", storeVO.getOpenClose());
+                    intent.putExtra("info", storeVO.getInfo());
+
+                    intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                    startActivity(intent);
+
+
                     break;
             }
         }
@@ -150,11 +166,82 @@ public class StoreInfoActivity extends AppCompatActivity {
         protected void onPostExecute(StoreVO storeVOS) {
             tv_storeInfo_name.setText(storeVOS.getName());
 
-            viewPager.setAdapter(new StoreImgPagerAdapter(getSupportFragmentManager(), storeVOS.getPhoto1(), storeVOS.getPhoto2()));
-            viewPager.setCurrentItem(0);
-
             number = 0;
             new StoreGoodAsync().execute(number);
+            new getItemStaffImgAsync().execute(storeVOS.getPhoto1());
+
+        }
+    }
+
+    public class getItemStaffImgAsync extends AsyncTask<String, Void, Bitmap> {
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+
+            URL url = null;
+            String pho = strings[0];
+            Bitmap bitmap = null;
+
+            try {
+                url = new URL(IpInfo.SERVERIP + "store_photo/" + pho);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.connect();
+
+                InputStream is = conn.getInputStream();
+                bitmap = BitmapFactory.decodeStream(is);
+
+                is.close();
+                conn.disconnect();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            img1 = bitmap;
+
+            new getItemStaffImgAsync2().execute(storeVO.getPhoto2());
+        }
+    }
+
+    public class getItemStaffImgAsync2 extends AsyncTask<String, Void, Bitmap> {
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+
+            URL url = null;
+            String pho = strings[0];
+            Bitmap bitmap = null;
+
+            try {
+                url = new URL(IpInfo.SERVERIP + "store_photo/" + pho);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.connect();
+
+                InputStream is = conn.getInputStream();
+                bitmap = BitmapFactory.decodeStream(is);
+
+                is.close();
+                conn.disconnect();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            img2 = bitmap;
+
+            viewPager.setAdapter(new StoreImgPagerAdapter(getSupportFragmentManager(), img1, img2));
+            viewPager.setCurrentItem(0);
+
         }
     }
 

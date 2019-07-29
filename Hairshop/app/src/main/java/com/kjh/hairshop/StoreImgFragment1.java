@@ -4,64 +4,26 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import util.IpInfo;
+import util.Tag;
 
 public class StoreImgFragment1 extends Fragment {
 
-    String photo1;
     ImageView imageView;
-    Bitmap src;
+    Bitmap img;
 
-    public StoreImgFragment1(String photo1) {
-        this.photo1 = photo1;
-    }
+    public StoreImgFragment1(Bitmap bitmap) {
+        this.img = bitmap;
 
-    public class getItemStaffImg extends AsyncTask<Void, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(Void... voids) {
-
-            URL url = null;
-            String photo = photo1;
-            Bitmap bitmap = null;
-
-            try {
-                url = new URL(IpInfo.SERVERIP + "store_photo/" + photo);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.connect();
-
-                InputStream is = conn.getInputStream();
-                bitmap = BitmapFactory.decodeStream(is);
-
-                is.close();
-                conn.disconnect();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            src = bitmap;
-        }
     }
 
     @Nullable
@@ -69,7 +31,7 @@ public class StoreImgFragment1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         imageView = (ImageView) inflater.inflate(R.layout.store_img1, container, false);
-        imageView.setImageBitmap(src);
+        imageView.setImageBitmap(img);
 
         return imageView;
     }
