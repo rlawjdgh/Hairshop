@@ -23,11 +23,15 @@ public class GetStoreStaffAdapter extends BaseAdapter {
 
     StoreInfoActivity storeInfoActivity;
     ArrayList<StaffVO> list;
+    String store_name;
+    int store_idx;
     StaffVO vo;
 
-    public GetStoreStaffAdapter(StoreInfoActivity storeInfoActivity, ArrayList<StaffVO> list) {
+    public GetStoreStaffAdapter(StoreInfoActivity storeInfoActivity, ArrayList<StaffVO> list, String store_name, int store_idx) {
         this.storeInfoActivity = storeInfoActivity;
         this.list = list;
+        this.store_name = store_name;
+        this.store_idx = store_idx;
     }
 
     @Override
@@ -77,19 +81,16 @@ public class GetStoreStaffAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(storeInfoActivity);
-                builder.setTitle("예약하시겠습니까?");
-
-                builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        // 예약 페이지
-
-                    }
-                })
-                .setPositiveButton("아니요", null);
-                builder.show();
+                Intent intent = new Intent(storeInfoActivity, StoreReservationActivity.class);
+                intent.putExtra("staff_idx", list.get(i).getStaff_idx());
+                intent.putExtra("staff_name", list.get(i).getName());
+                intent.putExtra("staff_grade", list.get(i).getGrade());
+                intent.putExtra("staff_info", list.get(i).getInfo());
+                intent.putExtra("staff_photo", list.get(i).getPhoto());
+                intent.putExtra("store_idx", store_idx);
+                intent.putExtra("store_name", store_name);
+                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                storeInfoActivity.startActivity(intent);
             }
         });
 

@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StoreMoreInfoActivity"></activity>
+        <activity android:name=".StoreReservationActivity"></activity>
+        <activity android:name=".StoreMoreInfoActivity" />
         <activity android:name=".StoreInfoActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

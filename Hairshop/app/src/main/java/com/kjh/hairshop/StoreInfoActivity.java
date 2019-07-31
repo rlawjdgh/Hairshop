@@ -36,7 +36,7 @@ import util.Tag;
 public class StoreInfoActivity extends AppCompatActivity {
 
     TextView tv_storeInfo_name, tv_storeInfo_staff;
-    Button btn_storeLike, btn_storeInfo;
+    Button btn_storeLike, btn_storeInfo, btn_back;
     GridView gridView;
     ViewPager viewPager;
     Intent intent;
@@ -57,6 +57,7 @@ public class StoreInfoActivity extends AppCompatActivity {
 
         btn_storeLike = findViewById(R.id.button_storeInfo_like);
         btn_storeInfo = findViewById(R.id.button_storeInfo_info);
+        btn_back = findViewById(R.id.button_storeinfo_back);
         tv_storeInfo_name = findViewById(R.id.textView_storeInfo_name);
         tv_storeInfo_staff = findViewById(R.id.textView_storeInfo_staff);
         viewPager = findViewById(R.id.view_pager);
@@ -72,6 +73,16 @@ public class StoreInfoActivity extends AppCompatActivity {
 
         btn_storeInfo.setOnClickListener(click);
         btn_storeLike.setOnClickListener(click);
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                intent = new Intent(StoreInfoActivity.this, MainActivity.class);
+                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                startActivity(intent);
+            }
+        });
 
         new getStoreInfoAsync().execute();
         new getStoreStaffAsync().execute();
@@ -311,7 +322,7 @@ public class StoreInfoActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(ArrayList<StaffVO> staffVOS) {
 
-            getStoreStaffAdapter = new GetStoreStaffAdapter(StoreInfoActivity.this, staffVOS);
+            getStoreStaffAdapter = new GetStoreStaffAdapter(StoreInfoActivity.this, staffVOS, storeVO.getName(), storeVO.getNickName_idx());
             gridView.setAdapter(getStoreStaffAdapter);
         }
     }
