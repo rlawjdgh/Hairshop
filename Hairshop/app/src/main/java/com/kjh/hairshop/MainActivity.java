@@ -236,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
             getStoreAllAdapter = new GetStoreAllAdapter(loc_list, MainActivity.this, my_lat, my_lng);
             getStoreAllAdapter.notifyDataSetChanged();
             listView.setAdapter(getStoreAllAdapter);
+            Utility.setListViewHeightBasedOnChildren(listView);
         }
     }
 
