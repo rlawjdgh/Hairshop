@@ -4,28 +4,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -34,26 +31,24 @@ import util.IpInfo;
 public class StoreReservationActivity extends AppCompatActivity {
 
 
-    ImageView img_staffPhoto, img_regdateCheck, img_timeCheck;
+    ImageView img_staffPhoto, img_regdate, img_time, img_regdateCheck, img_timeCheck;
     TextView tv_staffName, tv_staffInfo, tv_resRegdate, tv_resTime, tv_store_name, tv_cut, tv_perm, tv_chlorination, tv_clinic;
-    TextView tv_dhwjs, tv_dhgn, tv_tltnf, tv_noSurgery;
     Button btn_back;
     Button[] btn_time;
+    RelativeLayout rel_resTime, rel_surgery;
     ListView listView;
 
     Intent intent;
-    GetSurgeryAdapter getSurgeryAdapter;
+
     DatePickerDialog.OnDateSetListener dateListener;
     int year;
     int month;
     int day;
     boolean check_regdate = false;
     boolean check_time = false;
-    boolean check_btn_time = false;
     String getTime;
     int staff_idx;
     int store_idx;
-    int category = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +56,10 @@ public class StoreReservationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_store_reservation);
 
         img_staffPhoto = findViewById(R.id.imageView_reservation_photo);
+        img_regdate = findViewById(R.id.img_regdate);
         img_regdateCheck = findViewById(R.id.img_regdate_check);
         img_timeCheck = findViewById(R.id.img_time_check);
+        img_time = findViewById(R.id.img_time);
         tv_staffName = findViewById(R.id.textView_reservation_name);
         tv_staffInfo = findViewById(R.id.textView_reservation_info);
         tv_resRegdate = findViewById(R.id.textView_reservation_regdate);
@@ -72,15 +69,14 @@ public class StoreReservationActivity extends AppCompatActivity {
         tv_perm = findViewById(R.id.textView_perm);
         tv_chlorination = findViewById(R.id.textView_chlorination);
         tv_clinic = findViewById(R.id.textView_clinic);
-        tv_dhwjs = findViewById(R.id.textView_dhwjs);
-        tv_dhgn = findViewById(R.id.textView_dhgn);
-        tv_tltnf = findViewById(R.id.textView_tltnf);
-        tv_noSurgery = findViewById(R.id.textView_noSurgery);
         btn_back = findViewById(R.id.button_reservation_back);
+        rel_resTime = findViewById(R.id.relative_time);
+        rel_surgery = findViewById(R.id.relative_surgery);
         listView = findViewById(R.id.listView_reservation);
 
-        tv_resRegdate.setOnClickListener(click);
-        tv_resTime.setOnClickListener(click);
+        img_regdate.setOnClickListener(click);
+        img_time.setOnClickListener(click);
+
         tv_cut.setOnClickListener(sur_click);
         tv_perm.setOnClickListener(sur_click);
         tv_chlorination.setOnClickListener(sur_click);
@@ -133,7 +129,7 @@ public class StoreReservationActivity extends AppCompatActivity {
          public void onClick(View v) {
 
              switch (v.getId()) {
-                 case R.id.textView_reservation_regdate:
+                 case R.id.img_regdate:
 
                      Calendar minDate = Calendar.getInstance();
                      minDate.set(year, month, day);
@@ -151,68 +147,17 @@ public class StoreReservationActivity extends AppCompatActivity {
                              tv_resRegdate.setText((month+1) + "월 " + dayOfMonth + "일");
                              img_regdateCheck.setVisibility(View.VISIBLE);
                              check_regdate = true;
-
-                             if(check_regdate && check_btn_time) {
-
-                                 tv_tltnf.setVisibility(View.VISIBLE);
-                                 tv_cut.setVisibility(View.VISIBLE);
-                                 tv_perm.setVisibility(View.VISIBLE);
-                                 tv_chlorination.setVisibility(View.VISIBLE);
-                                 tv_clinic.setVisibility(View.VISIBLE);
-
-                                 new getItemSurgery().execute();
-                             }
                          }
                      };
+
+                     if(check_regdate && check_regdate) {
+
+                         // 시술 async
+                     }
                      break;
 
-                 case R.id.textView_reservation_time:
-
-                     if(!check_time) {
-
-                         check_time = true;
-
-                         if(check_btn_time) {
-
-                             tv_dhwjs.setVisibility(View.GONE);
-                             tv_dhgn.setVisibility(View.INVISIBLE);
-
-                             for(int i = 0; i < btn_time.length; i++) {
-                                 btn_time[i].setVisibility(View.GONE);
-                             }
-                         } else {
-
-                             tv_dhwjs.setVisibility(View.VISIBLE);
-                             tv_dhgn.setVisibility(View.VISIBLE);
-
-                             for(int i = 0; i < btn_time.length; i++) {
-                                 btn_time[i].setVisibility(View.VISIBLE);
-                             }
-                         }
-                     } else {
-
-                         check_time = false;
-
-                         if(check_btn_time) {
-
-                             tv_dhwjs.setVisibility(View.VISIBLE);
-                             tv_dhgn.setVisibility(View.VISIBLE);
-                             img_timeCheck.setVisibility(View.VISIBLE);
-
-                             for(int i = 0; i < btn_time.length; i++) {
-                                 btn_time[i].setVisibility(View.VISIBLE);
-                             }
-                         } else {
-
-                             tv_dhwjs.setVisibility(View.GONE);
-                             tv_dhgn.setVisibility(View.GONE);
-                             img_timeCheck.setVisibility(View.INVISIBLE);
-
-                             for(int i = 0; i < btn_time.length; i++) {
-                                 btn_time[i].setVisibility(View.GONE);
-                             }
-                         }
-                     }
+                 case R.id.img_time:
+                     rel_resTime.setVisibility(View.VISIBLE);
                      break;
              }
          }
@@ -250,26 +195,14 @@ public class StoreReservationActivity extends AppCompatActivity {
                     break;
             }
 
-            check_btn_time = true;
+            check_time = true;
             img_timeCheck.setVisibility(View.VISIBLE);
-            tv_dhwjs.setVisibility(View.GONE);
-            tv_dhgn.setVisibility(View.GONE);
-
-            for(int i = 0; i < btn_time.length; i++) {
-                btn_time[i].setVisibility(View.GONE);
-            }
-
+            rel_resTime.setVisibility(View.GONE);
             tv_resTime.setText(getTime);
 
-            if(check_regdate && check_btn_time) {
+            if(check_regdate && check_regdate) {
 
-                tv_tltnf.setVisibility(View.VISIBLE);
-                tv_cut.setVisibility(View.VISIBLE);
-                tv_perm.setVisibility(View.VISIBLE);
-                tv_chlorination.setVisibility(View.VISIBLE);
-                tv_clinic.setVisibility(View.VISIBLE);
-
-                new getItemSurgery().execute();
+                // 시술 async
             }
         }
     };
@@ -277,6 +210,7 @@ public class StoreReservationActivity extends AppCompatActivity {
     View.OnClickListener sur_click = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            int category;
 
             switch (v.getId()) {
 
@@ -297,7 +231,7 @@ public class StoreReservationActivity extends AppCompatActivity {
                     break;
             }
 
-            new getItemSurgery().execute();
+            // 시술 async
         }
     };
 
@@ -331,85 +265,6 @@ public class StoreReservationActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             img_staffPhoto.setImageBitmap(bitmap);
-        }
-    }
-
-    public class getItemSurgery extends AsyncTask<Void, Void, ArrayList<SurgeryVO>> {
-
-        ArrayList<SurgeryVO> list;
-        SurgeryVO vo;
-
-        @Override
-        protected ArrayList<SurgeryVO> doInBackground(Void... voids) {
-
-            String parameter = "nickName_idx=" + store_idx + "&category=" + category;
-            String serverip = IpInfo.SERVERIP + "getItemSurgery.do";
-
-            try {
-                String str;
-                URL url = new URL(serverip);
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-
-                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-
-                osw.write(parameter);
-                osw.flush();
-
-
-                if (conn.getResponseCode() == conn.HTTP_OK) {
-
-                    InputStreamReader isr = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                    BufferedReader reader = new BufferedReader(isr);
-
-                    StringBuffer buffer = new StringBuffer();
-                    while ((str = reader.readLine()) != null) {
-                        buffer.append(str);
-                    }
-
-                    JSONArray jsonArray = new JSONArray(buffer.toString());
-                    JSONObject jsonObject = null;
-
-                    list = new ArrayList();
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        jsonObject = jsonArray.getJSONObject(i);
-                        vo = new SurgeryVO();
-
-                        vo.setSurgery_idx(jsonObject.getInt("surgery_idx"));
-                        vo.setCategory(jsonObject.getInt("category"));
-                        vo.setName(jsonObject.getString("name"));
-                        vo.setPrice(jsonObject.getInt("price"));
-
-                        list.add(vo);
-                    }
-                }
-            } catch (Exception e) {
-                Log.i("MY", e.toString());
-            }
-
-            return list;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<SurgeryVO> surgeryVOS) {
-
-            if(surgeryVOS.size() == 0) {
-
-                listView.setVisibility(View.GONE);
-                tv_noSurgery.setVisibility(View.VISIBLE);
-            } else {
-
-                tv_noSurgery.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
-
-                getSurgeryAdapter = new GetSurgeryAdapter(StoreReservationActivity.this, surgeryVOS);
-                listView.setAdapter(getSurgeryAdapter);
-                Utility.setListViewHeightBasedOnChildren(listView);
-            }
         }
     }
 }

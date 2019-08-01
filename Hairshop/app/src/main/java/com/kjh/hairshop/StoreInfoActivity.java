@@ -324,7 +324,6 @@ public class StoreInfoActivity extends AppCompatActivity {
 
             getStoreStaffAdapter = new GetStoreStaffAdapter(StoreInfoActivity.this, staffVOS, storeVO.getName(), storeVO.getNickName_idx());
             gridView.setAdapter(getStoreStaffAdapter);
-            Utility.setGridViewHeightBasedOnChildren(gridView);
         }
     }
 

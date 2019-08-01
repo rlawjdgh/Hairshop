@@ -16,27 +16,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <Button
-                android:id="@+id/button_storeinfo_back"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/btn_back"
-                android:layout_marginTop="5dp"/>
-
-            <TextView
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="매장 소개"
-                android:textSize="25dp"
-                android:gravity="center"
-                android:id="@+id/textView_reservation_storeName"/>
+                android:id="@+id/vmfpdla">
+
+                <Button
+                    android:id="@+id/button_storeinfo_back"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/btn_back"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="매장 소개"
+                    android:textSize="25dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/textView_reservation_storeName"/>
+
+            </FrameLayout>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:layout_below="@+id/textView_reservation_storeName">
+                android:layout_below="@+id/vmfpdla">
             </androidx.viewpager.widget.ViewPager>
 
             <TextView
@@ -96,7 +102,7 @@
             <GridView
                 android:id="@+id/gridView_storeInfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_below="@id/textView_storeInfo_staff"
                 android:numColumns="2"></GridView>
 
