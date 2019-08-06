@@ -102,13 +102,13 @@ public class StoreDAO {
 		
 	}
 	
-	public int removeGood(StoreVO vo) {
+	/*public int removeGood(StoreVO vo) {
 		
 		SqlSession sqlSession = factory.openSession( true );
 		int result = sqlSession.update("store.remove_good", vo); 
 		sqlSession.close(); 
 		
 		return result;   
-	}
-	
+	}*/
+	 
 }

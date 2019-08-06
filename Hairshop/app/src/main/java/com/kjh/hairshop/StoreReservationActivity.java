@@ -175,7 +175,7 @@ public class StoreReservationActivity extends AppCompatActivity {
                          if(check_btn_time) {
 
                              tv_dhwjs.setVisibility(View.GONE);
-                             tv_dhgn.setVisibility(View.INVISIBLE);
+                             tv_dhgn.setVisibility(View.GONE);
 
                              for(int i = 0; i < btn_time.length; i++) {
                                  btn_time[i].setVisibility(View.GONE);
@@ -206,7 +206,7 @@ public class StoreReservationActivity extends AppCompatActivity {
 
                              tv_dhwjs.setVisibility(View.GONE);
                              tv_dhgn.setVisibility(View.GONE);
-                             img_timeCheck.setVisibility(View.INVISIBLE);
+                             img_timeCheck.setVisibility(View.GONE);
 
                              for(int i = 0; i < btn_time.length; i++) {
                                  btn_time[i].setVisibility(View.GONE);

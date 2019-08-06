@@ -28,24 +28,24 @@ public class Utility {
         listView.requestLayout();
     }
 
-    public static void setGridViewHeightBasedOnChildren(GridView gridView) {
-        ListAdapter gridViewAdapter = gridView.getAdapter();
-        if (gridViewAdapter == null) {
+    public static void setGridViewHeightBasedOnChildren(GridView gridView, int columns) {
+        ListAdapter listAdapter = gridView.getAdapter();
+        if (listAdapter == null) {
             // pre-condition
             return;
         }
 
         int totalHeight = 0;
-        int items = gridViewAdapter.getCount();
+        int items = listAdapter.getCount();
         int rows = 0;
 
-        View listItem = gridViewAdapter.getView(0, null, gridView);
+        View listItem = listAdapter.getView(0, null, gridView);
         listItem.measure(0, 0);
         totalHeight = listItem.getMeasuredHeight();
 
         float x = 1;
-        if( items > 5 ){
-            x = items/5;
+        if( items > columns ){
+            x = items/columns;
             rows = (int) (x + 1);
             totalHeight *= rows;
         }
@@ -53,5 +53,6 @@ public class Utility {
         ViewGroup.LayoutParams params = gridView.getLayoutParams();
         params.height = totalHeight;
         gridView.setLayoutParams(params);
+
     }
 }

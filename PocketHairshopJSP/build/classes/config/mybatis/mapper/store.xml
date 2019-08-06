@@ -36,8 +36,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update store set good = #{ good } where nickName_idx = #{ nickName_idx }
 	</update>
 	 
-	<update id="remove_good" parameterType="vo.StoreVO"> 
+	<!-- <update id="remove_good" parameterType="vo.StoreVO"> 
 		update store set good = #{ good } where nickName_idx = #{ nickName_idx }
-	</update>
+	</update> --> 
 	
 </mapper>  

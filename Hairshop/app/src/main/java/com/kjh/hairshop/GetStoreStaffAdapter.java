@@ -62,7 +62,6 @@ public class GetStoreStaffAdapter extends BaseAdapter {
             holder = new MyHolder();
             holder.imageView = view.findViewById(R.id.item_storeInfo_img);
             holder.name = view.findViewById(R.id.item_storeInfo_name);
-            holder.grade = view.findViewById(R.id.item_storeInfo_grade);
             holder.info = view.findViewById(R.id.item_storeInfo_info);
 
             new getItemStaffImg(holder.imageView, vo).execute();
@@ -73,8 +72,7 @@ public class GetStoreStaffAdapter extends BaseAdapter {
             holder = (MyHolder)view.getTag();
         }
 
-        holder.name.setText(list.get(i).getName());
-        holder.grade.setText(" (" + list.get(i).getGrade() + ")");
+        holder.name.setText(list.get(i).getName() + " " + list.get(i).getGrade());
         holder.info.setText(list.get(i).getInfo());
 
         view.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +140,6 @@ public class GetStoreStaffAdapter extends BaseAdapter {
     class MyHolder {
         ImageView imageView;
         TextView name;
-        TextView grade;
         TextView info;
     }
 }

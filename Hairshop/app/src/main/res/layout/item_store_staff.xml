@@ -4,36 +4,24 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center">
+    android:padding="10dp">
 
     <ImageView
         android:layout_marginTop="20dp"
         android:id="@+id/item_storeInfo_img"
-        android:layout_width="140dp"
+        android:layout_width="170dp"
         android:layout_height="140dp"
         android:scaleType="fitXY"
         android:src="#e0e0e0" />
 
-    <LinearLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="이름"
+        android:textColor="#1d1d1d"
+        android:textSize="18dp"
+        android:id="@+id/item_storeInfo_name"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="이름"
-            android:textColor="#1d1d1d"
-            android:textSize="18dp"
-            android:id="@+id/item_storeInfo_name"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" (직급)"
-            android:textColor="#1d1d1d"
-            android:id="@+id/item_storeInfo_grade"/>
-    </LinearLayout>
 
     <TextView
         android:id="@+id/item_storeInfo_info"

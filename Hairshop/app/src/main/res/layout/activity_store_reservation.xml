@@ -122,7 +122,7 @@
             android:layout_below="@+id/view1"
             android:layout_marginLeft="340dp"
             android:layout_marginTop="10dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:background="@drawable/btn_click" />
 
         <TextView
@@ -133,7 +133,7 @@
             android:text="오전"
             android:textSize="20dp"
             android:visibility="gone"
-            android:layout_below="@+id/img_time_check"/>
+            android:layout_below="@+id/textView_reservation_time"/>
 
         <Button
             android:id="@+id/button_reservation_0"
