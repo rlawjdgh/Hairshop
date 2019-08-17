@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
     SessionCallback callback;
     SharedPreferences pref;
     LoginParser loginParser;
-    BackPressed backPressed;
 
     String idx;
     String nickName;
@@ -51,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
 
         pref = PreferenceManager.getDefaultSharedPreferences( LoginActivity.this );
 
-        backPressed = new BackPressed(this);
         loginParser = new LoginParser();
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
@@ -226,10 +224,5 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(i);
             finish();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        backPressed.onBackPressed();
     }
 }

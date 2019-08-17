@@ -28,7 +28,7 @@ public class CheckMemberAction extends HttpServlet {
 		if(idx != null) {
 			 
 			MemberDAO dao = MemberDAO.getInstance();
-			MemberVO vo = dao.selectMember(Integer.parseInt(idx));
+			MemberVO vo = dao.selectMember(Integer.parseInt(idx)); 
 			
 			if( vo == null ) {
 				response.getWriter().println(String.format("[{'result':'fail'}]")); 

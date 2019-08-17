@@ -138,9 +138,10 @@
         <Button
             android:id="@+id/button_reservation_0"
             android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@id/textView_dhwjs"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="18dp"
+            android:background="#4AB34A"
             android:visibility="gone"
             android:text="11:00" />
 
@@ -156,65 +157,79 @@
 
         <Button
             android:id="@+id/button_reservation_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_below="@id/textView_dhgn"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="18dp"
+            android:background="#4AB34A"
             android:visibility="gone"
-            android:layout_marginLeft="15dp"
             android:text="12:00" />
 
         <Button
             android:id="@+id/button_reservation_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_below="@id/textView_dhgn"
+            android:layout_marginLeft="114dp"
+            android:layout_marginTop="4dp"
+            android:background="#4AB34A"
             android:visibility="gone"
-            android:layout_marginLeft="111dp"
             android:text="1:00" />
 
         <Button
             android:id="@+id/button_reservation_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_below="@id/textView_dhgn"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="219dp"
+            android:background="#4AB34A"
             android:visibility="gone"
-            android:layout_marginLeft="215dp"
             android:text="2:00" />
 
         <Button
             android:id="@+id/button_reservation_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_below="@id/textView_dhgn"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="314dp"
+            android:background="#4AB34A"
             android:visibility="gone"
-            android:layout_marginLeft="310dp"
             android:text="3:00" />
 
         <Button
             android:id="@+id/button_reservation_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_below="@id/button_reservation_4"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="18dp"
+            android:background="#4AB34A"
             android:visibility="gone"
-            android:layout_marginLeft="15dp"
             android:text="4:00" />
 
         <Button
             android:id="@+id/button_reservation_6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_below="@id/button_reservation_4"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="114dp"
+            android:background="#4AB34A"
             android:visibility="gone"
-            android:layout_marginLeft="111dp"
             android:text="5:00" />
 
         <Button
             android:id="@+id/button_reservation_7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
             android:layout_below="@id/button_reservation_4"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="219dp"
+            android:background="#4AB34A"
             android:visibility="gone"
-            android:layout_marginLeft="215dp"
             android:text="6:00" />
 
         <TextView

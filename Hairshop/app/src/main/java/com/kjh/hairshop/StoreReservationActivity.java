@@ -51,6 +51,7 @@ public class StoreReservationActivity extends AppCompatActivity {
     boolean check_time = false;
     boolean check_btn_time = false;
     String getTime;
+    String cal_day;
     int staff_idx;
     int store_idx;
     int category = 0;
@@ -148,7 +149,10 @@ public class StoreReservationActivity extends AppCompatActivity {
 
                          @Override
                          public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                             tv_resRegdate.setText((month+1) + "월 " + dayOfMonth + "일");
+
+                             cal_day = (month+1) + "월 " + dayOfMonth + "일";
+
+                             tv_resRegdate.setText(cal_day);
                              img_regdateCheck.setVisibility(View.VISIBLE);
                              check_regdate = true;
 
@@ -406,7 +410,7 @@ public class StoreReservationActivity extends AppCompatActivity {
                 tv_noSurgery.setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
 
-                getSurgeryAdapter = new GetSurgeryAdapter(StoreReservationActivity.this, surgeryVOS);
+                getSurgeryAdapter = new GetSurgeryAdapter(StoreReservationActivity.this, surgeryVOS, staff_idx, cal_day, getTime);
                 listView.setAdapter(getSurgeryAdapter);
                 Utility.setListViewHeightBasedOnChildren(listView);
             }

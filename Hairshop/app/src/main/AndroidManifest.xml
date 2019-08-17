@@ -15,7 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StoreReservationActivity"></activity>
+        <activity android:name=".KakaoPayActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="iamportkakao" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".StoreReservationActivity" />
         <activity android:name=".StoreMoreInfoActivity" />
         <activity android:name=".StoreInfoActivity" />
         <activity android:name=".LoginActivity">

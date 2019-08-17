@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.List;
 
 import util.IpInfo;
+import util.Tag;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         mapView = findViewById(R.id.map_view);
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 500, locationListener);
-
     }
 
     LocationListener locationListener = new LocationListener() {
@@ -301,7 +301,6 @@ public class MainActivity extends AppCompatActivity {
         public void onPermissionGranted() {
             Intent i = new Intent(MainActivity.this, MainActivity.class);
             startActivity(i);
-            finish();
         }
 
         @Override
