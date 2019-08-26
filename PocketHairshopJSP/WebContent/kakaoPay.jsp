@@ -33,9 +33,9 @@
 	            pay_method : 'card',
 	            merchant_uid : 'merchant_' + new Date().getTime(),
 	            name : 'hairshop ¿¹¾à',
-	            amount : $('#price').val(),
-	            app_scheme : 'iamportapp' 
-	        }, function(rsp) { 
+	            amount : $('#price').val(), 
+	            app_scheme : 'iamportkakao' 
+	        }, function(rsp) {   
 	        	 
 	            if ( rsp.success ) { 
 	            	
@@ -53,13 +53,15 @@
 	                    }
 	                }); */
 	            	
-	            	msg = "success";
+	            	msg = "success"; 
 	                //$(location).attr('href', '/tour/');
+	                
+	               	alert("sssss"); 
 	                 
 	            } else {
 	                  
 	            	msg = "fail";
-            	 	//$(location).attr('href', '/tour/');
+            	 	//$(location).attr('href', '/tour/');	
 	            }
 	        }); 
 	        

@@ -47,5 +47,22 @@ create table good (
 	login_idx number(15), 
 	store_idx number(15)
 );
+ 
+CREATE sequence reservation_seq 
+
+create table reservation (
+	reservation_idx number(10) primary key,
+	login_idx number(10),
+	staff_idx number(10),
+	cal_day varchar2(50),
+	getTime varchar2(50),
+	surgery_name varchar2(50),
+	price number(10),
+	complete number(5)
+);
+	 
+ 
+
+
 
 

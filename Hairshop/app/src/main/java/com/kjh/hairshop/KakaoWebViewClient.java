@@ -32,6 +32,7 @@ public class KakaoWebViewClient extends WebViewClient {
                 activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 return true;
             } catch (URISyntaxException ex) {
+
                 return false;
             } catch (ActivityNotFoundException e) {
                 if ( intent == null )	return false;

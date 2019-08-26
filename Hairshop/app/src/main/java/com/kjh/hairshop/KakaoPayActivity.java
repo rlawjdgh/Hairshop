@@ -59,6 +59,7 @@ public class KakaoPayActivity extends AppCompatActivity {
         super.onResume();
 
         Intent intent = getIntent();
+
         if ( intent != null ) {
             Uri intentData = intent.getData();
 
@@ -76,7 +77,5 @@ public class KakaoPayActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
-
 }
