@@ -25,11 +25,13 @@ public class InsertReservationAction extends HttpServlet {
 		
 		String login_idx = request.getParameter("login_idx");
 		String staff_idx = request.getParameter("staff_idx");
-		String cal_day = request.getParameter("cal_day");
+		String cal_day = request.getParameter("cal_day"); 
 		String getTime = request.getParameter("getTime");
 		String surgery_name = request.getParameter("surgery_name");
 		String price = request.getParameter("price");
-		
+		 
+		System.out.println("login_idx : " + login_idx + "staff_idx : " + staff_idx + "cal_day : " + cal_day + "getTime : " + getTime + "surgery_name : " + surgery_name + "price : " + price);
+		 
 		if(login_idx != null && staff_idx != null && cal_day != null && getTime != null && surgery_name != null && price != null) {
 			
 			ReservationVO vo = new ReservationVO();

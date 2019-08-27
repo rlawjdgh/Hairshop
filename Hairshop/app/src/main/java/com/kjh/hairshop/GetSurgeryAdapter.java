@@ -13,8 +13,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -26,18 +24,8 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import kr.co.bootpay.Bootpay;
-import kr.co.bootpay.BootpayAnalytics;
-import kr.co.bootpay.enums.Method;
-import kr.co.bootpay.enums.PG;
-import kr.co.bootpay.enums.UX;
-import kr.co.bootpay.listener.CancelListener;
-import kr.co.bootpay.listener.CloseListener;
-import kr.co.bootpay.listener.ConfirmListener;
-import kr.co.bootpay.listener.DoneListener;
-import kr.co.bootpay.listener.ErrorListener;
-import kr.co.bootpay.listener.ReadyListener;
 import util.IpInfo;
+import util.Tag;
 
 public class GetSurgeryAdapter extends BaseAdapter {
 
@@ -137,7 +125,7 @@ public class GetSurgeryAdapter extends BaseAdapter {
         String serverip = IpInfo.SERVERIP + "insertReservation.do";
 
         String result;
-        String staff_idx, cal_day, getTiem, surgery_name = "";
+        String staff_idx, cal_day, getTime, surgery_name = "";
         int price;
 
         @Override
@@ -145,12 +133,14 @@ public class GetSurgeryAdapter extends BaseAdapter {
 
             staff_idx = (String)objects[0];
             cal_day = (String)objects[1];
-            getTiem = (String)objects[2];
+            getTime = (String)objects[2];
             surgery_name = (String)objects[3];
             price = (Integer)objects[4];
 
+            Log.d(Tag.t, "serverip : " + serverip);
+
             parameter = "login_idx=" + login_idx + "&staff_idx=" + staff_idx + "&cal_day=" + cal_day + "&getTime=" 
-                    + getTiem + "&surgery_name=" + surgery_name + "&price=" + price;
+                    + getTime + "&surgery_name=" + surgery_name + "&price=" + price;
 
             try {
                 String str;
@@ -195,6 +185,10 @@ public class GetSurgeryAdapter extends BaseAdapter {
                 Toast.makeText(storeReservationActivity, "예약이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
                 // 페이지 이동
+                Intent intent = new Intent(storeReservationActivity, MainActivity.class);
+                intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                storeReservationActivity.startActivity(intent);
+
             }
         }
     }
