@@ -32,17 +32,17 @@ public class GetSurgeryAdapter extends BaseAdapter {
     StoreReservationActivity storeReservationActivity;
     ArrayList<SurgeryVO> list;
 
-    int staff_idx;
-    String cal_day;
-    String getTime;
-    int login_idx;
+    int login_idx, staff_idx, store_idx, price;
+    String cal_day, getTime;
 
-    public GetSurgeryAdapter(StoreReservationActivity storeReservationActivity, ArrayList<SurgeryVO> list, int staff_idx, String cal_day, String getTime) {
+    public GetSurgeryAdapter(StoreReservationActivity storeReservationActivity, ArrayList<SurgeryVO> list,
+                             int staff_idx, String cal_day, String getTime, int store_idx) {
         this.storeReservationActivity = storeReservationActivity;
         this.list = list;
         this.staff_idx = staff_idx;
         this.cal_day = cal_day;
         this.getTime = getTime;
+        this.store_idx = store_idx;
     }
 
     @Override
@@ -106,7 +106,8 @@ public class GetSurgeryAdapter extends BaseAdapter {
                     intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
                     storeReservationActivity.startActivity(intent);*/
 
-                    new ReservationAsync().execute(staff_idx, cal_day, getTime, list.get(i).getName(), list.get(i).getPrice());
+                    price = list.get(i).getPrice();
+                    new ReservationAsync().execute(list.get(i).getName(), price);
 
                     }
                 })
@@ -124,22 +125,16 @@ public class GetSurgeryAdapter extends BaseAdapter {
         String parameter;
         String serverip = IpInfo.SERVERIP + "insertReservation.do";
 
-        String result;
-        String staff_idx, cal_day, getTime, surgery_name = "";
+        String result, surgery_name = "";
         int price;
 
         @Override
         protected String doInBackground(Object... objects) {
 
-            staff_idx = (String)objects[0];
-            cal_day = (String)objects[1];
-            getTime = (String)objects[2];
-            surgery_name = (String)objects[3];
-            price = (Integer)objects[4];
+            surgery_name = (String)objects[0];
+            price = (Integer)objects[1];
 
-            Log.d(Tag.t, "serverip : " + serverip);
-
-            parameter = "login_idx=" + login_idx + "&staff_idx=" + staff_idx + "&cal_day=" + cal_day + "&getTime=" 
+            parameter = "login_idx=" + login_idx + "&staff_idx=" + staff_idx + "&cal_day=" + cal_day + "&getTime="
                     + getTime + "&surgery_name=" + surgery_name + "&price=" + price;
 
             try {
@@ -182,13 +177,68 @@ public class GetSurgeryAdapter extends BaseAdapter {
         protected void onPostExecute(String s) {
             
             if(s.equals("success")) {
+                new addPointAsync().execute();
+            }
+        }
+    }
+
+    public class addPointAsync extends AsyncTask<Void, Void, String> {
+
+        String parameter;
+        String serverip = IpInfo.SERVERIP + "addUserPoint.do";
+
+        String result;
+
+        @Override
+        protected String doInBackground(Void... voids) {
+
+            parameter = "login_idx=" + login_idx + "&store_idx=" + store_idx + "&price=" + price;
+
+            try {
+                String str;
+                URL url = new URL(serverip);
+
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded" );
+                conn.setRequestMethod("POST");
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+
+                osw.write( parameter );
+                osw.flush();
+
+                if( conn.getResponseCode() == conn.HTTP_OK ) {
+
+                    InputStreamReader isr = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                    BufferedReader reader = new BufferedReader(isr);
+
+                    StringBuffer buffer = new StringBuffer();
+                    while ((str = reader.readLine()) != null) {
+                        buffer.append(str);
+                    }
+
+                    JSONArray jsonArray = new JSONArray(buffer.toString());
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                    result = jsonObject.getString("result");
+                }
+
+            } catch (Exception e) {
+                Log.i( "MY", e.toString() );
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            if(s.equals("success")) {
                 Toast.makeText(storeReservationActivity, "예약이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
-                // 페이지 이동
                 Intent intent = new Intent(storeReservationActivity, MainActivity.class);
                 intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
                 storeReservationActivity.startActivity(intent);
-
             }
         }
     }

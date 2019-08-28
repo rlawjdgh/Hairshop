@@ -410,7 +410,7 @@ public class StoreReservationActivity extends AppCompatActivity {
                 tv_noSurgery.setVisibility(View.GONE);
                 listView.setVisibility(View.VISIBLE);
 
-                getSurgeryAdapter = new GetSurgeryAdapter(StoreReservationActivity.this, surgeryVOS, staff_idx, cal_day, getTime);
+                getSurgeryAdapter = new GetSurgeryAdapter(StoreReservationActivity.this, surgeryVOS, staff_idx, cal_day, getTime, store_idx);
                 listView.setAdapter(getSurgeryAdapter);
                 Utility.setListViewHeightBasedOnChildren(listView);
             }

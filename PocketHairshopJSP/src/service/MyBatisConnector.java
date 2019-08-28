@@ -35,8 +35,7 @@ public class MyBatisConnector {
 	
 	}//MyBatisConnector()
 	
-	public SqlSessionFactory getSqlSessionFactory() { 
-		System.out.println("factory : " + factory);
+	public SqlSessionFactory getSqlSessionFactory() {  
 		return factory;
 	}
 	

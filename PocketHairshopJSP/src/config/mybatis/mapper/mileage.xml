@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mileage">
+
+	<select id="select_userMileage" parameterType="vo.MileageVO" resultType="vo.MileageVO">
+		select * from mileage where login_idx = #{login_idx} and store_idx = #{store_idx}  
+	</select>
+	
+	<insert id="insert_mileage" parameterType="vo.MileageVO">
+		insert into mileage values ( #{login_idx}, #{store_idx}, #{user_point} ) 
+	</insert>  
+	
+	<update id="update_userPoint" parameterType="vo.MileageVO"> 
+		update mileage set user_point = #{ user_point } where login_idx = #{login_idx} and store_idx = #{store_idx} 
+	</update>
+	 
+</mapper>          

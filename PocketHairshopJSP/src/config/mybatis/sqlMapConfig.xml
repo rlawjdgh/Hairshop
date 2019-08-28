@@ -19,5 +19,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="config/mybatis/mapper/staff.xml" /> 
 		<mapper resource="config/mybatis/mapper/good.xml" /> 
 		<mapper resource="config/mybatis/mapper/reservation.xml" /> 
+		<mapper resource="config/mybatis/mapper/mileage.xml" /> 
 	</mappers>  
-</configuration>  
+</configuration>    

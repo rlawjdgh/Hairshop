@@ -3,6 +3,7 @@ package dao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import service.MyBatisConnector;
 import vo.ReservationVO;
 
 public class ReservationDAO {
@@ -19,13 +20,17 @@ public class ReservationDAO {
 		return single;
 	}
 	
+	public ReservationDAO() {
+		factory = MyBatisConnector.getInstance().getSqlSessionFactory();
+	}
+	 
 	public int insertReservation(ReservationVO vo) {
 		
 		SqlSession sqlSession = factory.openSession(true);
 		int result = sqlSession.insert("reservation.insert_reservation", vo);
 		sqlSession.close(); 
-
-		return result;
-	}
+ 
+		return result; 
+	}  
 
 }

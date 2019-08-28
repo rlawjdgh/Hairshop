@@ -29,7 +29,7 @@ public class CheckMemberAction extends HttpServlet {
 			 
 			MemberDAO dao = MemberDAO.getInstance();
 			MemberVO vo = dao.selectMember(Integer.parseInt(idx)); 
-			
+			  
 			if( vo == null ) {
 				response.getWriter().println(String.format("[{'result':'fail'}]")); 
 			}else {  

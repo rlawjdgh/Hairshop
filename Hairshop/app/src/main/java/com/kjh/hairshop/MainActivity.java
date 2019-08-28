@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         mapView = findViewById(R.id.map_view);
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 500, locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 500, locationListener);
     }
 
     LocationListener locationListener = new LocationListener() {

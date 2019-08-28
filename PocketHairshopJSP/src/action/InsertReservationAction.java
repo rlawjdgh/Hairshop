@@ -19,7 +19,7 @@ public class InsertReservationAction extends HttpServlet {
        
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setCharacterEncoding("utf-8"); 
+		request.setCharacterEncoding("utf-8");  
 	
 		String resultStr = "";
 		
@@ -28,9 +28,7 @@ public class InsertReservationAction extends HttpServlet {
 		String cal_day = request.getParameter("cal_day"); 
 		String getTime = request.getParameter("getTime");
 		String surgery_name = request.getParameter("surgery_name");
-		String price = request.getParameter("price");
-		 
-		System.out.println("login_idx : " + login_idx + "staff_idx : " + staff_idx + "cal_day : " + cal_day + "getTime : " + getTime + "surgery_name : " + surgery_name + "price : " + price);
+		String price = request.getParameter("price"); 
 		 
 		if(login_idx != null && staff_idx != null && cal_day != null && getTime != null && surgery_name != null && price != null) {
 			
