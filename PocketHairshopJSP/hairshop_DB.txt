@@ -60,6 +60,12 @@ create table reservation (
 	price number(10),
 	complete number(5)
 );
+
+create table mileage (
+	login_idx number(10),
+	store_idx number(10),
+	user_point number(10)
+);  
 	 
  
 
