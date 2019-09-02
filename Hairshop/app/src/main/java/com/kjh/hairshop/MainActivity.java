@@ -1,7 +1,9 @@
 package com.kjh.hairshop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -9,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -18,11 +21,22 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -45,6 +59,13 @@ import util.Tag;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences pref;
+    DrawerLayout drawerLayout;
+    RelativeLayout drawer;
+
+    TextView btn_myPage;
+    Button btn_logout;
+
     BackPressed backPressed;
     LocationManager locationManager;
     ProgressDialog progressDialog;
@@ -61,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     StoreVO vo;
     LocationVO loc_vo;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +101,25 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        coder = new Geocoder( MainActivity.this );
         listView = findViewById(R.id.listView);
+        drawer = findViewById(R.id.drawer);
+        drawerLayout = findViewById(R.id.drawerLayout);
+        btn_myPage = findViewById(R.id.button_myPage);
+        btn_logout = findViewById(R.id.button_logout);
+
+
+        btn_logout.setOnClickListener(my_drawer);
+
+        btn_myPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(drawer);
+            }
+        });
+
+        coder = new Geocoder( MainActivity.this );
+
+        drawerLayout.setDrawerLockMode( DrawerLayout.LOCK_MODE_UNLOCKED );
 
         progressDialog = new ProgressDialog( MainActivity.this );
         progressDialog.setMessage("Loading...");
@@ -91,6 +130,33 @@ public class MainActivity extends AppCompatActivity {
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 500, locationListener);
     }
+
+    View.OnClickListener my_drawer = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            switch (v.getId()) {
+
+                case R.id.button_logout:
+
+                    Toast.makeText(MainActivity.this, "로그아웃되었습니다", Toast.LENGTH_SHORT).show();
+
+                    UserManagement.requestLogout(new LogoutResponseCallback() {
+                        @Override
+                        public void onCompleteLogout() {
+
+                            pref = PreferenceManager.getDefaultSharedPreferences( MainActivity.this );
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.clear();
+                            editor.apply();
+
+                            handler_logout.sendEmptyMessageDelayed(0, 800);
+                        }
+                    });
+                break;
+            }
+        }
+    };
 
     LocationListener locationListener = new LocationListener() {
 
@@ -253,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Intent intent = new Intent(MainActivity.this, StoreInfoActivity.class);
+                        intent = new Intent(MainActivity.this, StoreInfoActivity.class);
                         intent.putExtra("store_idx", mapPOIItem.getTag());
                         intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
                         startActivity(intent);
@@ -316,6 +382,18 @@ public class MainActivity extends AppCompatActivity {
                 .setDeniedMessage("이 앱에서 요구하는 권한이 있습니다\n[설정]->[권한]에서 해당 권한을 활성화 해주세요")
                 .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION).check();
     }
+
+    Handler handler_logout = new Handler() {
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+
+            intent = new Intent(MainActivity.this, LoginActivity.class);
+            intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+            startActivity(intent);
+            finish();
+        }
+    };
 
     @Override
     public void onBackPressed() {

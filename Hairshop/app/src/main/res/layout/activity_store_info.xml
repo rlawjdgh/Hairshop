@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <Button
                 android:id="@+id/button_storeinfo_back"
                 android:layout_width="50dp"
@@ -49,7 +48,6 @@
                 android:paddingBottom="10dp"
                 android:text="가게 이름"
                 android:textSize="30dp" />
-
 
             <Button
                 android:id="@+id/button_storeInfo_like"
