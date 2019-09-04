@@ -98,6 +98,9 @@ public class DesignerMainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.btn_reservation:
+                    intent = new Intent(DesignerMainActivity.this, DesignerReservationActivity.class);
+                    intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                    startActivity(intent);
                     break;
 
             }

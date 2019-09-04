@@ -446,7 +446,7 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
         }
     }
 
-    public class UpdatePhotoAsync extends AsyncTask<String, Void, String>{
+    public class UpdatePhotoAsync extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... strings) {
@@ -584,6 +584,7 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
 
                     itemProductAdapter = new ItemProductAdapter(surgeryVOS, DesignerSurgeryActivity.this);
                     listView.setAdapter(itemProductAdapter);
+                    itemProductAdapter.notifyDataSetChanged();
 
                 } else {
                     tv_noSurgery.setVisibility(View.GONE);
@@ -591,6 +592,7 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
 
                     itemSurgeryAdapter = new ItemSurgeryAdapter(surgeryVOS, DesignerSurgeryActivity.this);
                     listView.setAdapter(itemSurgeryAdapter);
+                    itemSurgeryAdapter.notifyDataSetChanged();
 
                     handler.sendEmptyMessageDelayed(0, 1250);
                 }

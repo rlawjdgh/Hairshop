@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DesignerStaffActivity"></activity>
+        <activity android:name=".DesignerReservationActivity"></activity>
+        <activity android:name=".DesignerStaffActivity" />
         <activity android:name=".DesignerSurgeryActivity" />
         <activity android:name=".WebViewActivity" />
         <activity android:name=".DesignerStoreActivity" />

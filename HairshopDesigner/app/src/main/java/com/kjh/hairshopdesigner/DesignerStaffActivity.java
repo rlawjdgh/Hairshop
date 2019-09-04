@@ -490,6 +490,7 @@ public class DesignerStaffActivity extends AppCompatActivity {
 
                 itemStaffAdapter = new ItemStaffAdapter(staffVOS, DesignerStaffActivity.this);
                 listView.setAdapter(itemStaffAdapter);
+                itemStaffAdapter.notifyDataSetChanged();
             }
         }
     }

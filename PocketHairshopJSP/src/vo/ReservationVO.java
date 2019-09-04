@@ -4,12 +4,14 @@ public class ReservationVO {
 	
 	private int reservation_idx;
 	private int login_idx;
+	private int store_idx; 
 	private int staff_idx;
 	private String cal_day;
 	private String getTime;
 	private String surgery_name;
 	private int price;
 	private int complete;
+	private String regdate;
 	
 	 
 	public int getReservation_idx() {
@@ -23,6 +25,12 @@ public class ReservationVO {
 	}
 	public void setLogin_idx(int login_idx) {
 		this.login_idx = login_idx;
+	}
+	public int getStore_idx() {
+		return store_idx;
+	}
+	public void setStore_idx(int store_idx) {
+		this.store_idx = store_idx;
 	}
 	public int getStaff_idx() {
 		return staff_idx;
@@ -60,7 +68,11 @@ public class ReservationVO {
 	public void setComplete(int complete) {
 		this.complete = complete;
 	}
-	
-	
-
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+	 
 }

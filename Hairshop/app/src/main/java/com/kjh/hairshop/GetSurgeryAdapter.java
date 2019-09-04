@@ -134,7 +134,7 @@ public class GetSurgeryAdapter extends BaseAdapter {
             surgery_name = (String)objects[0];
             price = (Integer)objects[1];
 
-            parameter = "login_idx=" + login_idx + "&staff_idx=" + staff_idx + "&cal_day=" + cal_day + "&getTime="
+            parameter = "login_idx=" + login_idx + "&store_idx=" + store_idx + "&staff_idx=" + staff_idx + "&cal_day=" + cal_day + "&getTime="
                     + getTime + "&surgery_name=" + surgery_name + "&price=" + price;
 
             try {

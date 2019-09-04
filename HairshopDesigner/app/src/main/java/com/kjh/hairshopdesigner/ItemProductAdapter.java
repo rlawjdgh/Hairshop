@@ -168,10 +168,7 @@ public class ItemProductAdapter extends BaseAdapter {
 
         @Override
         protected void onPostExecute(String s) {
-
-            if( s.equals("success") ){
-                Log.d(Tag.t, "삭제완료");
-            }
+            super.onPostExecute(s);
         }
     }
 
