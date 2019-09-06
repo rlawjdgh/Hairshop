@@ -7,5 +7,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert_reservation" parameterType="vo.ReservationVO"> 
 		insert into reservation values ( reservation_seq.nextval, #{login_idx}, #{store_idx}, #{staff_idx}, #{cal_day}, #{getTime}, #{surgery_name}, #{price}, 0, sysdate ) 
 	</insert>  
+	
+	<select id="get_reservation" resultType="vo.ReservationVO">
+		select * from reservation where store_idx = #{store_idx} 
+	</select>  
  
-</mapper> 
+</mapper>  

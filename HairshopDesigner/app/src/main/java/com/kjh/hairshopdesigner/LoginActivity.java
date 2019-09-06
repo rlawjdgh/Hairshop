@@ -130,7 +130,6 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString( "login_email", jsonObject.getString("email"));
                     editor.putInt("login_division", jsonObject.getInt("division"));
 
-                    Log.i(Tag.t, "" + jsonObject.getString("nickName"));
                     editor.apply();
 
                     move(jsonObject.getInt("division"));

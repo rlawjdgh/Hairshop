@@ -11,5 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert_member" parameterType="vo.MemberVO">
 		insert into member values ( #{idx}, #{nickName}, #{email}, #{division} )
 	</insert>
+	
+	<select id="select_findName" resultType="vo.MemberVO">
+		select * from member where where idx = #{idx}
+	</select>  
 
-</mapper>
+</mapper>   

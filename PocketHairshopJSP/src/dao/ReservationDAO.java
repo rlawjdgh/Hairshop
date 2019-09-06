@@ -1,10 +1,13 @@
 package dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import service.MyBatisConnector;
 import vo.ReservationVO;
+import vo.StaffVO;
 
 public class ReservationDAO {
 
@@ -32,5 +35,14 @@ public class ReservationDAO {
  
 		return result; 
 	}  
+	
+	public List<ReservationVO> selectReservation(int store_idx) {
+			
+		SqlSession sqlSession = factory.openSession(); 
+		List<ReservationVO> list = sqlSession.selectList("reservation.get_reservation", store_idx);
+		sqlSession.close(); 
+		   
+		return list;
+	}
 
 }

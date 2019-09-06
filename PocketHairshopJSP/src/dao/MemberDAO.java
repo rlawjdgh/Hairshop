@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -41,6 +43,15 @@ public class MemberDAO {
 		sqlSession.close();
 
 		return vo;
+	}
+	
+	public List<MemberVO> findName(int idx) {
+		
+		SqlSession sqlSession = factory.openSession();
+		List<MemberVO> list = sqlSession.selectList("member.select_findName", idx);
+		sqlSession.close();
+		
+		return list; 
 	}
 
 }
