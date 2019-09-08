@@ -33,34 +33,35 @@ public class GetReservationAction extends HttpServlet {
 			
 			ReservationDAO rDao = ReservationDAO.getInstance();
 			StaffDAO sDao = StaffDAO.getInstance();
-			MemberDAO mDao = MemberDAO.getInstance(); 
+			MemberDAO mDao = MemberDAO.getInstance();  
 			
-			List<ReservationVO> rList = rDao.selectReservation(Integer.parseInt(store_idx));
-			
+			List<ReservationVO> rList = rDao.selectReservation(Integer.parseInt(store_idx)); 
+			 
 			String arr = "["; 
 			
-			for(int i = 0; i < rList.size(); i++) { 
-				
-				List<StaffVO> sList = sDao.getItemStaff(rList.get(i).getStaff_idx());  
-				List<MemberVO> mList = mDao.findName(rList.get(i).getLogin_idx());
+			for(int i = 0; i < rList.size(); i++) {
+				 
+				List<StaffVO> sList = sDao.findStaffName(rList.get(i).getStaff_idx());  
+				List<MemberVO> mList = mDao.findName(rList.get(i).getLogin_idx());  
 				
 				for(int j = 0; j < sList.size(); j++) { 
-					 
-					String str = String.format("{'reservation_idx':'%d', 'user_nickName':'%s', 'staff_name':'%s', 'cal_day':'%s', 'getTime':'%s', 'surgery_name':'%s'}", rList.get(j).getReservation_idx(), mList.get(j).getNickName(), sList.get(j).getName(), rList.get(j).getCal_day(), rList.get(j).getGetTime(), rList.get(j).getSurgery_name());
+					  
+					String str = String.format("{'reservation_idx':'%d', 'user_nickName':'%s', 'staff_name':'%s', 'staff_grade':'%s', 'cal_day':'%s', 'getTime':'%s', 'surgery_name':'%s', 'complete':'%d'}", rList.get(j).getReservation_idx(), mList.get(j).getNickName(), sList.get(j).getName(), sList.get(j).getGrade(), rList.get(j).getCal_day(), rList.get(j).getGetTime(), rList.get(j).getSurgery_name(), rList.get(j).getComplete());
 					arr += str;    
 					   
 					if(j != rList.size() -1) {  
 						arr += ", ";    
 					} 
-				} 
+				}   
 			}
 			
-			arr += "]";
-			 
+			arr += "]"; 
+			
 			response.setCharacterEncoding("UTF-8");  
 			response.setContentType("text/html; charset=UTF-8"); 
 			response.getWriter().println(arr);
-		}
-	}
-
+		
+		} 
+	} 
+ 
 }

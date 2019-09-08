@@ -13,11 +13,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="get_staff" resultType="vo.StaffVO">
-		select * from staff where nickName_idx = #{nickName_idx} 
+		select * from staff where nickName_idx = #{ nickName_idx } 
 	</select> 
 	
 	<delete id="delete_staff">
-		delete from staff where staff_idx=#{staff_idx}
+		delete from staff where staff_idx=#{staff_idx} 
 	</delete>
+	
+	<select id="find_staffName" resultType="vo.StaffVO">
+		select * from staff where staff_idx=#{staff_idx} 
+	</select> 
 
-</mapper> 
+</mapper>  

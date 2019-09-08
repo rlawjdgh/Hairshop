@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>  
 	
 	<select id="get_reservation" resultType="vo.ReservationVO">
-		select * from reservation where store_idx = #{store_idx} 
+		select * from reservation where store_idx = #{store_idx} order by regdate desc  
 	</select>  
  
 </mapper>  

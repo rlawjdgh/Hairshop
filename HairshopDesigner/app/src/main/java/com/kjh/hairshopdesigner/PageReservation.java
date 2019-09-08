@@ -1,5 +1,6 @@
 package com.kjh.hairshopdesigner;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,18 +36,26 @@ public class PageReservation extends Fragment {
     int store_idx;
 
     ItemReservationAdapter itemReservationAdapter;
+    TextView tv_noReservation;
     ListView listView;
+    ProgressDialog progressDialog;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        LinearLayout layout =
-                (LinearLayout)inflater.inflate(R.layout.viewpager_reservation, container, false);
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         store_idx = pref.getInt("login_idx", 0);
 
-        listView = container.findViewById(R.id.listView_reservation);
+        progressDialog = new ProgressDialog( getContext() );
+        progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable( false );
+        progressDialog.show();
+
+        LinearLayout layout =
+                (LinearLayout)inflater.inflate(R.layout.viewpager_reservation, container, false);
+        listView = layout.findViewById(R.id.listView_reservation);
+        tv_noReservation = layout.findViewById(R.id.textView_noReservation);
 
         new getReservation().execute();
 
@@ -98,16 +108,16 @@ public class PageReservation extends Fragment {
 
                         vo = new ReservationVO();
                         vo.setReservation_idx(jsonObject.getInt("reservation_idx"));
-                        vo.setUser_name(jsonObject.getString("user_name"));
+                        vo.setUser_nickName(jsonObject.getString("user_nickName"));
                         vo.setStaff_name(jsonObject.getString("staff_name"));
+                        vo.setStaff_grade(jsonObject.getString("staff_grade"));
                         vo.setCal_day(jsonObject.getString("cal_day"));
                         vo.setGetTime(jsonObject.getString("getTime"));
                         vo.setSurgery_name(jsonObject.getString("surgery_name"));
+                        vo.setComplete(jsonObject.getInt("complete"));
 
                         list.add(vo);
                     }
-
-                    Log.d(Tag.t, "" + list);
                 }
 
             } catch (Exception e) {
@@ -120,9 +130,16 @@ public class PageReservation extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<ReservationVO> reservationVOS) {
 
+            progressDialog.dismiss();
+
             if(reservationVOS.size() == 0 ) {
 
+                tv_noReservation.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
             } else {
+
+                tv_noReservation.setVisibility(View.GONE);
+                listView.setVisibility(View.VISIBLE);
 
                 itemReservationAdapter = new ItemReservationAdapter(reservationVOS, getContext());
                 listView.setAdapter(itemReservationAdapter);

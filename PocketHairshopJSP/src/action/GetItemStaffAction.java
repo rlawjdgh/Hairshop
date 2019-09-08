@@ -44,7 +44,7 @@ public class GetItemStaffAction extends HttpServlet {
 					if(i != list.size() -1) {  
 						arr += ", ";  
 					}
-				}   
+				}    
 				
 				arr += "]";
 			 

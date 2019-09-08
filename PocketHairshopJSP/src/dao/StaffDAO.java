@@ -52,7 +52,7 @@ public class StaffDAO {
 		sqlSession.close(); 
 		 
 		return list;
-	}
+	} 
 	
 	public int removeItemStaff(int staff_idx) {
 		
@@ -62,6 +62,14 @@ public class StaffDAO {
 		 
 		return result;
 	}
-	  
+	 
+	public List<StaffVO> findStaffName(int nickName_idx) { 
+		
+		SqlSession sqlSession = factory.openSession(); 
+		List<StaffVO> list = sqlSession.selectList("staff.find_staffName",nickName_idx);
+		sqlSession.close(); 
+		 
+		return list; 
+	}
 
 }

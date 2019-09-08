@@ -463,8 +463,6 @@ public class DesignerStaffActivity extends AppCompatActivity {
 
                         list.add(vo);
                     }
-
-                    Log.d(Tag.t, "" + list);
                 }
 
             } catch (Exception e) {

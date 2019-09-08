@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="select_findName" resultType="vo.MemberVO">
-		select * from member where where idx = #{idx}
+		select * from member where idx = #{idx}
 	</select>  
 
 </mapper>   
