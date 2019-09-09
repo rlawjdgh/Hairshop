@@ -96,19 +96,23 @@ public class GetSurgeryAdapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                    /*Intent intent = new Intent(storeReservationActivity, KakaoPayActivity.class);
-                    intent.putExtra("staff_idx", staff_idx);
-                    intent.putExtra("regdate", cal_day);
-                    intent.putExtra("time", getTime);
-                    intent.putExtra("surgery_name", list.get(i).getName());
-                    intent.putExtra("price", list.get(i).getPrice());
+                        /*Intent intent = new Intent(storeReservationActivity, KakaoPayActivity.class);
+                        intent.putExtra("staff_idx", staff_idx);
+                        intent.putExtra("regdate", cal_day);
+                        intent.putExtra("time", getTime);
+                        intent.putExtra("surgery_name", list.get(i).getName());
+                        intent.putExtra("price", list.get(i).getPrice());
 
-                    intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
-                    storeReservationActivity.startActivity(intent);*/
+                        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                        storeReservationActivity.startActivity(intent);*/
 
-                    price = list.get(i).getPrice();
-                    new ReservationAsync().execute(list.get(i).getName(), price);
+                        price = list.get(i).getPrice();
 
+                        if(getTime.equals("") || cal_day.equals("")) {
+                            Toast.makeText(storeReservationActivity, "날짜와 시간을 확인해주세요", Toast.LENGTH_SHORT).show();
+                        } else {
+                            new ReservationAsync().execute(list.get(i).getName(), price);
+                        }
                     }
                 })
                 .setPositiveButton("아니요", null);

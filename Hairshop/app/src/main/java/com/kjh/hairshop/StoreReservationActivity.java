@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +32,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import util.IpInfo;
+import util.Tag;
 
 public class StoreReservationActivity extends AppCompatActivity {
 
@@ -155,6 +158,14 @@ public class StoreReservationActivity extends AppCompatActivity {
                              tv_resRegdate.setText(cal_day);
                              img_regdateCheck.setVisibility(View.VISIBLE);
                              check_regdate = true;
+
+                             for(int i = 0; i < btn_time.length; i++) {
+
+                                 btn_time[i].setBackgroundColor(Color.rgb(74, 179, 74	));
+                                 btn_time[i].setEnabled(true);
+                             }
+
+                             new getReservationTimeAsync().execute();
 
                              if(check_regdate && check_btn_time) {
 
@@ -304,6 +315,85 @@ public class StoreReservationActivity extends AppCompatActivity {
             new getItemSurgery().execute();
         }
     };
+
+    public class getReservationTimeAsync extends AsyncTask<Void, Void, ArrayList<String>> {
+
+        ArrayList<String> list;
+
+        @Override
+        protected ArrayList<String> doInBackground(Void... voids) {
+
+            String parameter = "cal_day=" + cal_day;
+            String serverip = IpInfo.SERVERIP + "getReservationTime.do";
+
+            try {
+                String str;
+                URL url = new URL(serverip);
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                conn.setRequestMethod("POST");
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+
+                osw.write(parameter);
+                osw.flush();
+
+
+                if (conn.getResponseCode() == conn.HTTP_OK) {
+
+                    InputStreamReader isr = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                    BufferedReader reader = new BufferedReader(isr);
+
+                    StringBuffer buffer = new StringBuffer();
+                    while ((str = reader.readLine()) != null) {
+                        buffer.append(str);
+                    }
+
+                    JSONArray jsonArray = new JSONArray(buffer.toString());
+                    JSONObject jsonObject = null;
+
+                    list = new ArrayList();
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        jsonObject = jsonArray.getJSONObject(i);
+
+                        list.add(jsonObject.getString("getTime"));
+                    }
+                }
+            } catch (Exception e) {
+                Log.i("MY", e.toString());
+            }
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> strings) {
+
+            for(int i = 0; i < btn_time.length; i++) {
+
+                for(int j = 0; j < strings.size(); j++) {
+
+                    if(btn_time[i].getText().toString().equals(strings.get(j))) {
+
+                        if(getTime.equals(strings.get(j))) {
+                            Toast.makeText(StoreReservationActivity.this, "예약이 되어있는 시간입니다.", Toast.LENGTH_SHORT).show();
+                            tv_resTime.setText("시간 선택");
+                            getTime = "";
+
+                            img_timeCheck.setVisibility(View.GONE);
+                            check_btn_time = false;
+                            check_time = false;
+                        }
+
+                        btn_time[i].setBackgroundColor(Color.DKGRAY);
+                        btn_time[i].setEnabled(false);
+                    }
+                }
+            }
+        }
+    }
 
     public class getItemStaffImg extends AsyncTask<String, Void, Bitmap> {
 

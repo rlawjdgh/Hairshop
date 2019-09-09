@@ -44,5 +44,14 @@ public class ReservationDAO {
 		   
 		return list;
 	}
+	
+	public List<ReservationVO> getReservationTime(String cal_day) {
+		
+		SqlSession sqlSession = factory.openSession(); 
+		List<ReservationVO> list = sqlSession.selectList("reservation.get_reservationTime", cal_day);
+		sqlSession.close(); 
+		   
+		return list;
+	}
 
 }

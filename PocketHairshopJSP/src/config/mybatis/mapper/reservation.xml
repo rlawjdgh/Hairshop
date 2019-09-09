@@ -11,5 +11,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="get_reservation" resultType="vo.ReservationVO">
 		select * from reservation where store_idx = #{store_idx} order by regdate desc  
 	</select>  
+	
+	<select id="get_reservationTime" resultType="vo.ReservationVO">
+		select * from reservation where cal_day = #{cal_day}  
+	</select> 
  
-</mapper>  
+</mapper>   
