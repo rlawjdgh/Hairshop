@@ -10,6 +10,8 @@ public class ReservationVO {
     private String getTime;
     private String surgery_name;
     private int complete;
+    private String regdate;
+
 
     public int getReservation_idx() {
         return reservation_idx;
@@ -73,5 +75,13 @@ public class ReservationVO {
 
     public void setComplete(int complete) {
         this.complete = complete;
+    }
+
+    public String getRegdate() {
+        return regdate;
+    }
+
+    public void setRegdate(String regdate) {
+        this.regdate = regdate;
     }
 }

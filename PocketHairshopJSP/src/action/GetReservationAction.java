@@ -46,15 +46,15 @@ public class GetReservationAction extends HttpServlet {
 				
 				for(int j = 0; j < sList.size(); j++) { 
 					  
-					String str = String.format("{'reservation_idx':'%d', 'user_nickName':'%s', 'staff_name':'%s', 'staff_grade':'%s', 'cal_day':'%s', 'getTime':'%s', 'surgery_name':'%s', 'complete':'%d'}", rList.get(j).getReservation_idx(), mList.get(j).getNickName(), sList.get(j).getName(), sList.get(j).getGrade(), rList.get(j).getCal_day(), rList.get(j).getGetTime(), rList.get(j).getSurgery_name(), rList.get(j).getComplete());
+					String str = String.format("{'reservation_idx':'%d', 'user_nickName':'%s', 'staff_name':'%s', 'staff_grade':'%s', 'cal_day':'%s', 'getTime':'%s', 'surgery_name':'%s', 'regdate':'%s', 'complete':'%d'}", rList.get(i).getReservation_idx(), mList.get(j).getNickName(), sList.get(j).getName(), sList.get(j).getGrade(), rList.get(i).getCal_day(), rList.get(i).getGetTime(), rList.get(i).getSurgery_name(), rList.get(i).getRegdate() ,rList.get(i).getComplete());
 					arr += str;    
 					   
 					if(j != rList.size() -1) {  
 						arr += ", ";    
-					} 
+					}  
 				}   
 			}
-			
+			  
 			arr += "]"; 
 			
 			response.setCharacterEncoding("UTF-8");  

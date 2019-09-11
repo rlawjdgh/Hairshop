@@ -377,7 +377,7 @@ public class StoreReservationActivity extends AppCompatActivity {
 
                     if(btn_time[i].getText().toString().equals(strings.get(j))) {
 
-                        if(getTime.equals(strings.get(j))) {
+                        if(getTime != null && getTime.equals(strings.get(j))) {
                             Toast.makeText(StoreReservationActivity.this, "예약이 되어있는 시간입니다.", Toast.LENGTH_SHORT).show();
                             tv_resTime.setText("시간 선택");
                             getTime = "";

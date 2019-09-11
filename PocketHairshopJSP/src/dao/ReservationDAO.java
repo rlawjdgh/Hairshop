@@ -53,5 +53,14 @@ public class ReservationDAO {
 		   
 		return list;
 	}
+	
+	public int reservationComplete(int reservation_idx) {
+		
+		SqlSession sqlSession = factory.openSession( true );
+		int result = sqlSession.update("reservation.reservation_complete", reservation_idx); 
+		sqlSession.close();
+		
+		return result;
+	} 
 
 }

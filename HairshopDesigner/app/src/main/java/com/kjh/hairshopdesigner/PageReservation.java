@@ -114,6 +114,7 @@ public class PageReservation extends Fragment {
                         vo.setCal_day(jsonObject.getString("cal_day"));
                         vo.setGetTime(jsonObject.getString("getTime"));
                         vo.setSurgery_name(jsonObject.getString("surgery_name"));
+                        vo.setRegdate(jsonObject.getString("regdate"));
                         vo.setComplete(jsonObject.getInt("complete"));
 
                         list.add(vo);

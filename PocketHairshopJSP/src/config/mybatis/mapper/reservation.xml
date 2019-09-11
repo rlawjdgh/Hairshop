@@ -15,5 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="get_reservationTime" resultType="vo.ReservationVO">
 		select * from reservation where cal_day = #{cal_day}  
 	</select> 
+	
+	<update id="reservation_complete" parameterType="vo.ReservationVO">
+		update reservation set complete = 1 where reservation_idx = #{ reservation_idx }
+	</update> 
  
 </mapper>   

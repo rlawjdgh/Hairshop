@@ -156,7 +156,10 @@ public class ItemStaffAdapter extends BaseAdapter {
 
         @Override
         protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+
+            if( s.equals("success") ){
+                notifyDataSetChanged();
+            }
         }
     }
 
