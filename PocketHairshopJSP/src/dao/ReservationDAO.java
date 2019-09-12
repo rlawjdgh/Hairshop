@@ -62,5 +62,14 @@ public class ReservationDAO {
 		
 		return result;
 	} 
+	
+	public List<ReservationVO> getMyReservation(int login_idx) {
+		
+		SqlSession sqlSession = factory.openSession(); 
+		List<ReservationVO> list = sqlSession.selectList("reservation.get_Myreservation", login_idx);
+		sqlSession.close();  
+		   
+		return list;
+	}
 
 }

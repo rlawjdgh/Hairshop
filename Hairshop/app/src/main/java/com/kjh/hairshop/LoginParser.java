@@ -50,7 +50,6 @@ public class LoginParser {
 
                 JSONArray jsonArray = new JSONArray(buffer.toString());
                 jsonObject = jsonArray.getJSONObject(0);
-                Log.d(Tag.t, "PARSER jsonobject : " + jsonObject);
             }
 
         } catch (Exception e) {

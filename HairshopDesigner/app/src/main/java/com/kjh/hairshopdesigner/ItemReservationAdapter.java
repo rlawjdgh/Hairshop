@@ -71,12 +71,13 @@ public class ItemReservationAdapter extends BaseAdapter {
             holder = (MyHolder)view.getTag();
         }
 
-        holder.user_name.setText(list.get(i).getUser_nickName() + " (" + list.get(i).getStaff_name() + " " + list.get(i).getStaff_grade() + ")");
-        holder.cal_day.setText(list.get(i).getCal_day() + " / " + list.get(i).getGetTime());
+        holder.user_name.setText("회원님 : " + list.get(i).getUser_nickName() + " (" + list.get(i).getStaff_name() + " " + list.get(i).getStaff_grade() + ")");
+        holder.cal_day.setText("예약날짜 : " + list.get(i).getCal_day() + " " + list.get(i).getGetTime());
         holder.surgery_name.setText(list.get(i).getSurgery_name());
-        holder.regdate.setText("예약시간 : " + list.get(i).getRegdate());
+        holder.regdate.setText("예약한 시간 : " + list.get(i).getRegdate());
 
         if(list.get(i).getComplete() == 0 ) {
+
             holder.complete.setTextColor(Color.RED);
             holder.complete.setText("미완료");
         } else {

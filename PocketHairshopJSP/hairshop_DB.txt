@@ -69,6 +69,20 @@ create table mileage (
 	user_point number(10)
 );  
 	 
+CREATE sequence review_seq
+
+create table review (
+	review_idx number(10) primary key,
+	login_idx number(10), 
+	reservation_idx number(10),
+	store_idx number(10),
+	staff_name varchar2(20),
+	context varchar2(100),
+	rating number(10),
+	regdate date
+); 
+
+
  
 
 

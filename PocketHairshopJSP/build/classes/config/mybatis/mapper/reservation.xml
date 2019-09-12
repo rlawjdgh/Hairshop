@@ -19,5 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="reservation_complete" parameterType="vo.ReservationVO">
 		update reservation set complete = 1 where reservation_idx = #{ reservation_idx }
 	</update> 
+
+	<select id="get_Myreservation" resultType="vo.ReservationVO">
+		select * from reservation where login_idx = #{login_idx} order by regdate desc  
+	</select>   
  
-</mapper>   
+</mapper>    

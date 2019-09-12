@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     GetStoreAllAdapter getStoreAllAdapter;
     ListView listView;
+    LinearLayout ll_myReservation;
 
     MapView mapView;
     MapPoint myPoint, storePoint;
@@ -83,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
     StoreVO vo;
     LocationVO loc_vo;
     Intent intent;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +112,10 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         btn_myPage = findViewById(R.id.button_myPage);
         btn_logout = findViewById(R.id.button_logout);
-
-
+        ll_myReservation = findViewById(R.id.linearLayout_myReservation);
+        
         btn_logout.setOnClickListener(my_drawer);
+        ll_myReservation.setOnClickListener(my_drawer);
 
         btn_myPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +161,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                 break;
+                
+                case R.id.linearLayout_myReservation:
+
+                    intent = new Intent(MainActivity.this, MyReservationActivity.class);
+                    intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                    startActivity(intent);
+                    finish();
+                    break;
             }
         }
     };
