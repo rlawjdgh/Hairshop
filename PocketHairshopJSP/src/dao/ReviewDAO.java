@@ -46,5 +46,32 @@ public class ReviewDAO {
 
 		return vo;
 	}
+	
+	public List<ReviewVO> getStoreComment(int store_idx) {
+		
+		SqlSession sqlSession = factory.openSession();  
+		List<ReviewVO> list = sqlSession.selectList("review.get_StoreComment", store_idx);
+		sqlSession.close(); 
+		 
+		return list;  
+	}
+	
+	public int updateReviewComplete(int review_idx) {
+		
+		SqlSession sqlSession = factory.openSession( true );
+		int result = sqlSession.update("review.update_reviewComplete", review_idx); 
+		sqlSession.close();
+		
+		return result;
+	}
+	
+	public String findStaffName(int review_idx) {
+		 
+		SqlSession sqlSession = factory.openSession(); 
+		String result = sqlSession.selectOne("review.find_staffName", review_idx); 
+		sqlSession.close();
+		
+		return result;
+	}
 
 }

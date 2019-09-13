@@ -69,8 +69,6 @@ public class ItemProductAdapter extends BaseAdapter {
         vo = new SurgeryVO();
         vo = list.get(i);
 
-        Log.d(Tag.t, "" + list.size());
-
         if(view == null) {
             view = View.inflate(designerSurgeryActivity, R.layout.item_product_surgery, null);
 

@@ -155,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
                             pref = PreferenceManager.getDefaultSharedPreferences( MainActivity.this );
                             SharedPreferences.Editor editor = pref.edit();
                             editor.clear();
+
+                            editor.putBoolean( "save", false );
                             editor.apply();
 
                             handler_logout.sendEmptyMessageDelayed(0, 800);

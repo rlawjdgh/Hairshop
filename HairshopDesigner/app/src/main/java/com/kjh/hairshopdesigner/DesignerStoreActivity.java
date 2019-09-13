@@ -89,22 +89,6 @@ public class DesignerStoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_designer_store);
 
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-
         pref = PreferenceManager.getDefaultSharedPreferences( DesignerStoreActivity.this );
         nickName_idx = pref.getInt("login_idx", 0);
 
@@ -993,26 +977,4 @@ public class DesignerStoreActivity extends AppCompatActivity {
             startActivity(intent);
         }
     };
-
-    PermissionListener permissionListener = new PermissionListener() {
-        @Override
-        public void onPermissionGranted() {
-            Intent i = new Intent(DesignerStoreActivity.this, DesignerStoreActivity.class);
-            startActivity(i);
-            finish();
-        }
-
-        @Override
-        public void onPermissionDenied(List<String> deniedPermissions) {
-            finish();
-        }
-    };
-
-    private void setPermission() {
-
-        TedPermission.with( this )
-                .setPermissionListener( permissionListener )
-                .setDeniedMessage("이 앱에서 요구하는 권한이 있습니다\n[설정]->[권한]에서 해당 권한을 활성화 해주세요")
-                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).check();
-    }
 }

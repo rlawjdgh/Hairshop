@@ -74,22 +74,6 @@ public class DesignerStaffActivity extends AppCompatActivity {
         tv_noStaff = findViewById(R.id.textView_noStaff);
         btn_back = findViewById(R.id.button_staff_back);
 
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-
         pref = PreferenceManager.getDefaultSharedPreferences( DesignerStaffActivity.this );
         nickName_idx = pref.getInt("login_idx", 0);
 
@@ -490,28 +474,6 @@ public class DesignerStaffActivity extends AppCompatActivity {
                 listView.setAdapter(itemStaffAdapter);
             }
         }
-    }
-
-    PermissionListener permissionListener = new PermissionListener() {
-        @Override
-        public void onPermissionGranted() {
-            Intent i = new Intent(DesignerStaffActivity.this, DesignerStaffActivity.class);
-            startActivity(i);
-            finish();
-        }
-
-        @Override
-        public void onPermissionDenied(List<String> deniedPermissions) {
-            finish();
-        }
-    };
-
-    private void setPermission() {
-
-        TedPermission.with( this )
-                .setPermissionListener( permissionListener )
-                .setDeniedMessage("이 앱에서 요구하는 권한이 있습니다\n[설정]->[권한]에서 해당 권한을 활성화 해주세요")
-                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).check();
     }
 
     public void move() {

@@ -5,11 +5,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="review">
 
 	<insert id="insert_review" parameterType="vo.ReviewVO"> 
-		insert into review values ( review_seq.nextval, #{login_idx}, #{reservation_idx}, #{store_idx}, #{staff_name}, #{context}, #{rating}, sysdate )
-	</insert> 
+		insert into review values ( review_seq.nextval, #{login_idx}, #{reservation_idx}, #{store_idx}, #{staff_name}, #{context}, #{rating}, sysdate, 0 )
+	</insert>  
 	
 	<select id="select_review" parameterType="int" resultType="vo.ReviewVO">
 		select * from review where reservation_idx = #{reservation_idx}
 	</select> 
+	
+	<select id="get_StoreComment" resultType="vo.ReviewVO" parameterType="int">
+		select * from review where store_idx = #{store_idx} order by regdate desc 
+	</select>  
 
-</mapper>    
+	<update id="update_reviewComplete" parameterType="vo.ReviewVO">
+		update review set complete = 1 where review_idx = #{ review_idx }
+	</update>  
+
+	<select id="find_staffName" parameterType="int" resultType="String">
+		select staff_name from review where review_idx = #{ review_idx }
+	</select> 
+
+</mapper>      

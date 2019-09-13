@@ -10,6 +10,7 @@ public class ReviewVO {
 	private String context;
 	private int rating;
 	private String regdate;
+	private int complete; 
 	 
 	public int getReview_idx() {
 		return review_idx;
@@ -59,7 +60,13 @@ public class ReviewVO {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	public int getComplete() {
+		return complete;
+	}
+	public void setComplete(int complete) {
+		this.complete = complete;
+	}
 	
-	
+	 
 
 }

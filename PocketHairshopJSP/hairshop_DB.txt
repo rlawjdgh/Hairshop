@@ -79,8 +79,15 @@ create table review (
 	staff_name varchar2(20),
 	context varchar2(100),
 	rating number(10),
-	regdate date
-); 
+	regdate date,
+	complete number(5) 
+);
+
+create table reply (
+	review_idx number(10),
+	staff_name varchar2(50),
+	context varchar2(100)
+);
 
 
  

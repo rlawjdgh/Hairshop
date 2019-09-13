@@ -2,9 +2,12 @@ package com.kjh.hairshopdesigner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,8 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
+
+import java.util.List;
 
 public class DesignerMainActivity extends AppCompatActivity {
 
@@ -35,11 +42,26 @@ public class DesignerMainActivity extends AppCompatActivity {
 
         textView_logout = findViewById(R.id.textView_logout);
         textView_nickName = findViewById(R.id.textView_nickName);
-
         btn_store = findViewById(R.id.btn_store);
         btn_reservation = findViewById(R.id.btn_reservation);
         btn_employee = findViewById(R.id.btn_employee);
         btn_surgery = findViewById(R.id.btn_surgery);
+
+        if(ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            setPermission();
+            return;
+        }
+        if(ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            setPermission();
+            return;
+        }
+        if(ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            setPermission();
+            return;
+        }
 
         btn_store.setOnClickListener(click);
         btn_reservation.setOnClickListener(click);
@@ -63,6 +85,8 @@ public class DesignerMainActivity extends AppCompatActivity {
                         pref = PreferenceManager.getDefaultSharedPreferences( DesignerMainActivity.this );
                         SharedPreferences.Editor editor = pref.edit();
                         editor.clear();
+
+                        editor.putBoolean( "save", false );
                         editor.apply();
 
                         handler_logout.sendEmptyMessageDelayed(0, 800);
@@ -118,6 +142,28 @@ public class DesignerMainActivity extends AppCompatActivity {
             finish();
         }
     };
+
+    PermissionListener permissionListener = new PermissionListener() {
+        @Override
+        public void onPermissionGranted() {
+            Intent i = new Intent(DesignerMainActivity.this, DesignerMainActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        @Override
+        public void onPermissionDenied(List<String> deniedPermissions) {
+            finish();
+        }
+    };
+
+    private void setPermission() {
+
+        TedPermission.with( this )
+                .setPermissionListener( permissionListener )
+                .setDeniedMessage("이 앱에서 요구하는 권한이 있습니다\n[설정]->[권한]에서 해당 권한을 활성화 해주세요")
+                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).check();
+    }
 
     @Override
     public void onBackPressed() {

@@ -56,9 +56,9 @@ public class LoginActivity extends AppCompatActivity {
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
 
-        String check = pref.getString("login_nickName", nickName);
-        if(check != null) {
-            move(pref.getInt("login_division", division));
+        boolean b = pref.getBoolean("save", false);
+        if(b) {
+            move(0);
         }
     }
 
@@ -128,8 +128,8 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("login_nickName", jsonObject.getString("nickName"));
                     editor.putString( "login_email", jsonObject.getString("email"));
                     editor.putInt("login_division", jsonObject.getInt("division"));
+                    editor.putBoolean("save", true);
 
-                    Log.i(Tag.t, "" + jsonObject.getString("nickName"));
                     editor.apply();
 
                     move(jsonObject.getInt("division"));
@@ -208,6 +208,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("login_nickName", nickName);
                 editor.putString( "login_email", email);
                 editor.putInt("login_division", division);
+                editor.putBoolean("save", true);
                 editor.apply();
 
                 move(division);
