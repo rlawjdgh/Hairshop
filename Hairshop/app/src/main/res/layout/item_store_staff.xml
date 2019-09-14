@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:padding="10dp">
 
     <ImageView
@@ -15,20 +16,21 @@
         android:src="#e0e0e0" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="이름"
         android:textColor="#1d1d1d"
         android:textSize="18dp"
+        android:gravity="center"
         android:id="@+id/item_storeInfo_name"/>
 
 
     <TextView
         android:id="@+id/item_storeInfo_info"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="한마디"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textSize="18dp" />
 
 </LinearLayout>

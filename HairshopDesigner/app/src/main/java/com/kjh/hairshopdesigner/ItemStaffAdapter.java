@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -158,7 +159,7 @@ public class ItemStaffAdapter extends BaseAdapter {
         protected void onPostExecute(String s) {
 
             if( s.equals("success") ){
-                notifyDataSetChanged();
+                designerStaffActivity.handler.sendEmptyMessage(0);
             }
         }
     }

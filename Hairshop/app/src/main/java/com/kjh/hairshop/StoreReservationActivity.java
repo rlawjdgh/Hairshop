@@ -323,7 +323,7 @@ public class StoreReservationActivity extends AppCompatActivity {
         @Override
         protected ArrayList<String> doInBackground(Void... voids) {
 
-            String parameter = "cal_day=" + cal_day;
+            String parameter = "cal_day=" + cal_day + "&staff_idx=" + staff_idx;
             String serverip = IpInfo.SERVERIP + "getReservationTime.do";
 
             try {

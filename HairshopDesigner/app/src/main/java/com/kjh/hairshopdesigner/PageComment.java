@@ -3,6 +3,8 @@ package com.kjh.hairshopdesigner;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -130,7 +132,22 @@ public class PageComment extends Fragment {
 
                 itemCommentAdapter = new ItemCommentAdapter(reviewVOS, getContext());
                 listView.setAdapter(itemCommentAdapter);
+                itemCommentAdapter.notifyDataSetChanged();
+
+                handler.sendEmptyMessageDelayed(0, 1250);
             }
         }
     }
+
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            if(msg.what == 0) {
+                new getStoreCommentAsync().execute();
+                handler.removeMessages(0);
+            }
+        }
+    };
 }

@@ -82,139 +82,99 @@ public class ItemMyReservationAdapter extends BaseAdapter {
             holder.cal_day = view.findViewById(R.id.textView_cal_day);
             holder.surgery_name = view.findViewById(R.id.textView_SurgeryName);
             holder.complete = view.findViewById(R.id.textView_complete);
+            holder.reviewComplete = view.findViewById(R.id.textView_reviewComplete);
 
             view.setTag(holder);
         } else {
             holder = (MyHolder)view.getTag();
         }
 
-        store_idx = list.get(i).getStore_idx();
-        staff_name = list.get(i).getStaff_name() + " " + list.get(i).getStaff_grade();
-
-        holder.staff_name.setText("디자이너 : " + staff_name);
+        holder.staff_name.setText("디자이너 : " + list.get(i).getStaff_name() + " " + list.get(i).getStaff_grade());
         holder.cal_day.setText("예약날짜 : " + list.get(i).getCal_day() + " " + list.get(i).getGetTime());
         holder.surgery_name.setText(list.get(i).getSurgery_name());
 
         if(list.get(i).getComplete() == 0 ) {
             holder.complete.setTextColor(Color.RED);
             holder.complete.setText("미완료");
-        } else {
+
+        } else if(list.get(i).getComplete() == 1 ){
 
             holder.complete.setTextColor(Color.BLUE);
+            holder.reviewComplete.setTextColor(Color.RED);
+
             holder.complete.setText("완료");
+            holder.reviewComplete.setText("  '리뷰를 작성해주세요!'");
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     reservation_idx = list.get(i).getReservation_idx();
-                    new checkInsertReviewAsync().execute(list.get(i).getReservation_idx());
+                    store_idx = list.get(i).getStore_idx();
+                    staff_name = list.get(i).getStaff_name() + " " + list.get(i).getStaff_grade();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(myReservationActivity);
+                    builder.setTitle("리뷰를 남기시겠습니까?");
+
+                    builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            review = new Dialog(myReservationActivity);
+                            review.setContentView(R.layout.item_write_review);
+                            review.show();
+
+                            et_writeContext = review.findViewById(R.id.editText_writeContext);
+                            ratingBar = review.findViewById(R.id.ratingBar);
+                            btn_save = review.findViewById(R.id.button_review_save);
+
+                            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                                @Override
+                                public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                                    ratingNum = (int)ratingBar.getRating();
+                                }
+                            });
+
+                            btn_save.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    if(et_writeContext.equals("")) {
+                                        Toast.makeText(myReservationActivity, "후기를 입력해주세요", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    if(ratingBar.getRating() == 0) {
+                                        Toast.makeText(myReservationActivity, "별점을 선택해주세요", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+
+                                    new insertReviewAsync().execute(et_writeContext.getText().toString());
+                                }
+                            });
+                        }
+                    })
+                    .setPositiveButton("아니요", null);
+                    builder.show();
+                }
+            });
+        } else {
+
+            holder.complete.setTextColor(Color.BLUE);
+            holder.reviewComplete.setTextColor(Color.BLUE);
+
+            holder.complete.setText("완료");
+            holder.reviewComplete.setText("  '리뷰 작성완료!'");
+            
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(myReservationActivity, "리뷰를 작성하셨습니다.", Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
         return view;
-    }
-
-   public class checkInsertReviewAsync extends AsyncTask<Integer, Void, String> {
-
-        String parameter = "";
-        String serverip = IpInfo.SERVERIP + "checkInsertReview.do";
-
-        String result;
-
-        @Override
-        protected String doInBackground(Integer... integers) {
-
-            parameter = "reservation_idx=" + integers[0];
-
-            try {
-                String str;
-                URL url = new URL(serverip);
-
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestMethod("POST");
-
-                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
-
-                osw.write(parameter);
-                osw.flush();
-
-                if (conn.getResponseCode() == conn.HTTP_OK) {
-
-                    InputStreamReader isr = new InputStreamReader(conn.getInputStream(), "UTF-8");
-                    BufferedReader reader = new BufferedReader(isr);
-
-                    StringBuffer buffer = new StringBuffer();
-                    while ((str = reader.readLine()) != null) {
-                        buffer.append(str);
-                    }
-
-                    JSONArray jsonArray = new JSONArray(buffer.toString());
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-
-                    result = jsonObject.getString("result");
-                }
-
-            } catch (Exception e) {
-                Log.i("MY", e.toString());
-            }
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-
-            if(s.equals("noWrite")) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(myReservationActivity);
-                builder.setTitle("리뷰를 남기시겠습니까?");
-
-                builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        review = new Dialog(myReservationActivity);
-                        review.setContentView(R.layout.item_write_review);
-                        review.show();
-
-                        et_writeContext = review.findViewById(R.id.editText_writeContext);
-                        ratingBar = review.findViewById(R.id.ratingBar);
-                        btn_save = review.findViewById(R.id.button_review_save);
-
-                        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                            @Override
-                            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                                ratingNum = (int)ratingBar.getRating();
-                            }
-                        });
-
-                        btn_save.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                if(et_writeContext.equals("")) {
-                                    Toast.makeText(myReservationActivity, "후기를 입력해주세요", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-                                if(ratingBar.getRating() == 0) {
-                                    Toast.makeText(myReservationActivity, "별점을 선택해주세요", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-
-                                new insertReviewAsync().execute(et_writeContext.getText().toString());
-                            }
-                        });
-                    }
-                })
-                .setPositiveButton("아니요", null);
-                builder.show();
-
-            } else {
-                Toast.makeText(myReservationActivity, "리뷰를 작성했습니다.", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     public class insertReviewAsync extends AsyncTask<String, Void, String> {
@@ -274,9 +234,6 @@ public class ItemMyReservationAdapter extends BaseAdapter {
                 review.dismiss();
                 handler.sendEmptyMessageDelayed(0, 400);
             }
-            if(s.equals("yesWrite")) {
-                Toast.makeText(myReservationActivity, "후기를 작성하셨습니다.", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
@@ -291,9 +248,11 @@ public class ItemMyReservationAdapter extends BaseAdapter {
     };
 
     class MyHolder {
+
         TextView staff_name;
         TextView cal_day;
         TextView surgery_name;
         TextView complete;
+        TextView reviewComplete;
     }
 }

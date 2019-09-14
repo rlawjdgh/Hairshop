@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -144,7 +146,22 @@ public class PageReservation extends Fragment {
 
                 itemReservationAdapter = new ItemReservationAdapter(reservationVOS, getContext());
                 listView.setAdapter(itemReservationAdapter);
+                itemReservationAdapter.notifyDataSetChanged();
+
+                handler.sendEmptyMessageDelayed(0, 1250);
             }
         }
     }
+
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            if(msg.what == 0) {
+                new getReservation().execute();
+                handler.removeMessages(0);
+            }
+        }
+    };
 }

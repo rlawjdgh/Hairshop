@@ -25,11 +25,17 @@ public class GetReservationTime extends HttpServlet {
 		request.setCharacterEncoding("utf-8"); 
 		
 		String cal_day = request.getParameter("cal_day");
+		String staff_idx = request.getParameter("staff_idx");
 		
-		if(cal_day != null) {
+		if(cal_day != null && staff_idx != null) {
 			
 			ReservationDAO dao = ReservationDAO.getInstance();
-			List<ReservationVO> list = dao.getReservationTime(cal_day);
+			
+			ReservationVO vo = new ReservationVO();
+			vo.setCal_day(cal_day);
+			vo.setStaff_idx(Integer.parseInt(staff_idx)); 
+			
+			List<ReservationVO> list = dao.getReservationTime(vo);
 			
 			String arr = "[";
 			 
@@ -43,7 +49,7 @@ public class GetReservationTime extends HttpServlet {
 				}
 			}   
 			
-			arr += "]";  
+			arr += "]";   
 
 			response.setCharacterEncoding("UTF-8");  
 			response.setContentType("text/html; charset=UTF-8"); 

@@ -12,16 +12,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from reservation where store_idx = #{store_idx} order by regdate desc  
 	</select>  
 	
-	<select id="get_reservationTime" resultType="vo.ReservationVO">
-		select * from reservation where cal_day = #{cal_day}  
+	<select id="get_reservationTime" resultType="vo.ReservationVO" parameterType="vo.ReservationVO">
+		select * from reservation where cal_day = #{cal_day} and staff_idx = #{staff_idx} 
 	</select> 
-	
+	 
 	<update id="reservation_complete" parameterType="vo.ReservationVO">
 		update reservation set complete = 1 where reservation_idx = #{ reservation_idx }
 	</update> 
 
 	<select id="get_Myreservation" resultType="vo.ReservationVO">
 		select * from reservation where login_idx = #{login_idx} order by regdate desc  
-	</select>   
+	</select>  
+	
+	<update id="update_complete" parameterType="vo.ReservationVO">
+		update reservation set complete = 2 where reservation_idx = #{ reservation_idx }
+	</update>  
  
-</mapper>    
+</mapper>     

@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +36,12 @@ public class MyReservationActivity extends AppCompatActivity {
     Button btn_back;
 
     int login_idx;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new getMyReservationAsync().execute(login_idx);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,13 +144,27 @@ public class MyReservationActivity extends AppCompatActivity {
 
                 itemMyReservationAdapter = new ItemMyReservationAdapter(reservationVOS, MyReservationActivity.this, login_idx);
                 lv_myReservation.setAdapter(itemMyReservationAdapter);
+                itemMyReservationAdapter.notifyDataSetChanged();
+
+                handler.sendEmptyMessageDelayed(0, 1250);
             }
         }
     }
 
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            if(msg.what == 0) {
+                new getMyReservationAsync().execute(login_idx);
+                handler.removeMessages(0);
+            }
+        }
+    };
+
     @Override
     public void onBackPressed() {
-
         move();
     }
 
@@ -151,5 +173,6 @@ public class MyReservationActivity extends AppCompatActivity {
         Intent intent = new Intent(MyReservationActivity.this, MainActivity.class);
         intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
         startActivity(intent);
+        finish();
     }
 }

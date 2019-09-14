@@ -168,7 +168,7 @@ public class ItemProductAdapter extends BaseAdapter {
         protected void onPostExecute(String s) {
 
             if( s.equals("success") ){
-                notifyDataSetChanged();
+                designerSurgeryActivity.handler.sendEmptyMessage(0);
             }
         }
     }

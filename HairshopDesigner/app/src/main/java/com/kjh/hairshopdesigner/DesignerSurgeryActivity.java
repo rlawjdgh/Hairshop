@@ -105,22 +105,6 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
             }
         });
 
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-        if(ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            setPermission();
-            return;
-        }
-
         progressDialog = new ProgressDialog( DesignerSurgeryActivity.this );
         progressDialog.setMessage("Loading...");
         progressDialog.setCancelable( false );
@@ -598,28 +582,6 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    PermissionListener permissionListener = new PermissionListener() {
-        @Override
-        public void onPermissionGranted() {
-            Intent i = new Intent(DesignerSurgeryActivity.this, DesignerSurgeryActivity.class);
-            startActivity(i);
-            finish();
-        }
-
-        @Override
-        public void onPermissionDenied(List<String> deniedPermissions) {
-            finish();
-        }
-    };
-
-    private void setPermission() {
-
-        TedPermission.with( this )
-                .setPermissionListener( permissionListener )
-                .setDeniedMessage("이 앱에서 요구하는 권한이 있습니다\n[설정]->[권한]에서 해당 권한을 활성화 해주세요")
-                .setPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE).check();
     }
 
     @Override

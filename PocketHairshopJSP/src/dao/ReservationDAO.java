@@ -45,12 +45,12 @@ public class ReservationDAO {
 		return list;
 	}
 	
-	public List<ReservationVO> getReservationTime(String cal_day) {
+	public List<ReservationVO> getReservationTime(ReservationVO vo) {
 		
 		SqlSession sqlSession = factory.openSession(); 
-		List<ReservationVO> list = sqlSession.selectList("reservation.get_reservationTime", cal_day);
+		List<ReservationVO> list = sqlSession.selectList("reservation.get_reservationTime", vo);
 		sqlSession.close(); 
-		   
+		    
 		return list;
 	}
 	
@@ -71,5 +71,14 @@ public class ReservationDAO {
 		   
 		return list;
 	}
+	
+	public int updateComplete(int reservation_idx) {
+		
+		SqlSession sqlSession = factory.openSession( true );
+		int result = sqlSession.update("reservation.update_complete", reservation_idx); 
+		sqlSession.close();
+		 
+		return result;
+	} 
 
 }

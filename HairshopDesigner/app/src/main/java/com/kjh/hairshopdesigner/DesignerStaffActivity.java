@@ -1,5 +1,6 @@
 package com.kjh.hairshopdesigner;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -16,6 +17,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -82,7 +85,8 @@ public class DesignerStaffActivity extends AppCompatActivity {
         progressDialog.setCancelable( false );
         progressDialog.show();
 
-        new getItemStaff().execute();
+        //new getItemStaff().execute();
+        handler.sendEmptyMessage(0);
 
         btn_staffAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -472,9 +476,23 @@ public class DesignerStaffActivity extends AppCompatActivity {
 
                 itemStaffAdapter = new ItemStaffAdapter(staffVOS, DesignerStaffActivity.this);
                 listView.setAdapter(itemStaffAdapter);
+                itemStaffAdapter.notifyDataSetChanged();
+
             }
         }
     }
+
+    Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+
+            if(msg.what == 0) {
+                new getItemStaff().execute();
+                handler.removeMessages(0);
+            }
+        }
+    };
 
     public void move() {
 
