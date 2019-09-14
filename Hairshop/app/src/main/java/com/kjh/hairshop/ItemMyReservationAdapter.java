@@ -88,7 +88,6 @@ public class ItemMyReservationAdapter extends BaseAdapter {
             holder = (MyHolder)view.getTag();
         }
 
-        reservation_idx = list.get(i).getReservation_idx();
         store_idx = list.get(i).getStore_idx();
         staff_name = list.get(i).getStaff_name() + " " + list.get(i).getStaff_grade();
 
@@ -103,14 +102,12 @@ public class ItemMyReservationAdapter extends BaseAdapter {
 
             holder.complete.setTextColor(Color.BLUE);
             holder.complete.setText("완료");
-        }
-
-        if(list.get(i).getComplete() == 1) {
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    reservation_idx = list.get(i).getReservation_idx();
                     new checkInsertReviewAsync().execute(list.get(i).getReservation_idx());
                 }
             });
@@ -119,7 +116,7 @@ public class ItemMyReservationAdapter extends BaseAdapter {
         return view;
     }
 
-   public class checkInsertReviewAsync extends AsyncTask<Integer, Void, String > {
+   public class checkInsertReviewAsync extends AsyncTask<Integer, Void, String> {
 
         String parameter = "";
         String serverip = IpInfo.SERVERIP + "checkInsertReview.do";
@@ -275,7 +272,6 @@ public class ItemMyReservationAdapter extends BaseAdapter {
 
             if(s.equals("success")) {
                 review.dismiss();
-                notifyDataSetChanged();
                 handler.sendEmptyMessageDelayed(0, 400);
             }
             if(s.equals("yesWrite")) {
@@ -289,6 +285,7 @@ public class ItemMyReservationAdapter extends BaseAdapter {
         @Override
         public void handleMessage(@NonNull Message msg) {
 
+            notifyDataSetChanged();
             Toast.makeText(myReservationActivity, "리뷰를 저장했습니다.", Toast.LENGTH_SHORT).show();
         }
     };

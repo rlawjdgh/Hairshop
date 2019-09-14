@@ -149,6 +149,7 @@ public class GetStoreAllAdapter extends BaseAdapter {
     }
 
     class MyHolder {
+
         ImageView imageView;
         TextView name;
         TextView info;

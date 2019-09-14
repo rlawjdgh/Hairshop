@@ -45,13 +45,13 @@ public class GetStoreCommentAction extends HttpServlet {
 					 String str = String.format("{'review_idx':'%d', 'user_name':'%s', 'staff_name':'%s', 'context':'%s', 'rating':'%d', 'complete':'%d'}", rList.get(i).getReview_idx(), mList.get(j).getNickName(), rList.get(i).getStaff_name(), rList.get(i).getContext(), rList.get(i).getRating(), rList.get(i).getComplete());
 						arr += str;
 						 
-						if(i != mList.size() -1) {  
+						if(i != rList.size() -1) {  
 							arr += ", ";    
-						}	 
+						}	  
 				 }
 			}  
 			
-			arr += "]";
+			arr += "]"; 
 			
 			response.setCharacterEncoding("UTF-8");  
 			response.setContentType("text/html; charset=UTF-8"); 

@@ -54,14 +54,15 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_below="@id/textView_storeInfo_name"
-                android:layout_marginLeft="162dp"/>
+                android:background="@drawable/btn_like"
+                android:layout_marginLeft="112dp"/>
 
             <TextView
                 android:id="@+id/like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/button_storeInfo_like"
-                android:paddingLeft="162dp"
+                android:layout_marginLeft="112dp"
                 android:text="좋아요" />
 
             <Button
@@ -77,9 +78,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/button_storeInfo_info"
-                android:layout_marginTop="0dp"
-                android:paddingLeft="217dp"
+                android:layout_marginLeft="167dp"
                 android:text="정보" />
+
+            <Button
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/textView_storeInfo_name"
+                android:layout_toRightOf="@id/button_storeInfo_info"
+                android:background="@drawable/btn_review"
+                android:layout_marginLeft="14dp"
+                android:id="@+id/button_storeinfo_review"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_storeInfo_info"
+                android:layout_marginLeft="216dp"
+                android:text="리뷰" />
+
+            <Button
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_below="@id/textView_storeInfo_name"
+                android:layout_toRightOf="@id/button_storeinfo_review"
+                android:layout_marginLeft="14dp"
+                android:background="@drawable/btn_product"
+                android:id="@+id/button_storeinfo_product"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_storeInfo_info"
+                android:layout_marginLeft="265dp"
+                android:text="상품" />
 
             <TextView
                 android:id="@+id/textView_storeInfo_staff"

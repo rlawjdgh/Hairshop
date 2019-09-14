@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -7,6 +9,7 @@ import service.MyBatisConnector;
 import vo.GoodVO;
 import vo.MemberVO;
 import vo.ReplyVO;
+import vo.StaffVO;
 
 public class ReplyDAO {
 
@@ -34,5 +37,14 @@ public class ReplyDAO {
 
 		return result;
 	} 
+	
+	public List<ReplyVO> getReply(int review_idx) {
+		
+		SqlSession sqlSession = factory.openSession(); 
+		List<ReplyVO> list = sqlSession.selectList("reply.get_reply", review_idx);
+		sqlSession.close();  
+		 
+		return list;
+	}
 
 }

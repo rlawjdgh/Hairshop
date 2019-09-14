@@ -36,7 +36,7 @@ import util.Tag;
 public class StoreInfoActivity extends AppCompatActivity {
 
     TextView tv_storeInfo_name, tv_storeInfo_staff;
-    Button btn_storeLike, btn_storeInfo, btn_back;
+    Button btn_storeLike, btn_storeInfo, btn_back, btn_storeReview, btn_sotre_product;
     GridView gridView;
     ViewPager viewPager;
     Intent intent;
@@ -57,6 +57,7 @@ public class StoreInfoActivity extends AppCompatActivity {
 
         btn_storeLike = findViewById(R.id.button_storeInfo_like);
         btn_storeInfo = findViewById(R.id.button_storeInfo_info);
+        btn_storeReview = findViewById(R.id.button_storeinfo_review);
         btn_back = findViewById(R.id.button_storeinfo_back);
         tv_storeInfo_name = findViewById(R.id.textView_storeInfo_name);
         tv_storeInfo_staff = findViewById(R.id.textView_storeInfo_staff);
@@ -73,6 +74,7 @@ public class StoreInfoActivity extends AppCompatActivity {
 
         btn_storeInfo.setOnClickListener(click);
         btn_storeLike.setOnClickListener(click);
+        btn_storeReview.setOnClickListener(click);
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +112,15 @@ public class StoreInfoActivity extends AppCompatActivity {
 
                     intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
                     startActivity(intent);
+                    break;
 
+                case R.id.button_storeinfo_review:
 
+                    intent = new Intent(StoreInfoActivity.this, StoreReviewActivity.class);
+                    intent.putExtra("store_idx", store_idx);
+
+                    intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                    startActivity(intent);
                     break;
             }
         }

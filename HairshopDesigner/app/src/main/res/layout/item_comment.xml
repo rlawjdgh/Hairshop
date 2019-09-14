@@ -30,7 +30,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="미완료"
+        android:text="완료"
         android:id="@+id/textView_reply"/>
-
 </LinearLayout>

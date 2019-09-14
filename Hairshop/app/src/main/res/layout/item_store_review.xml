@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/ratingBarStyleSmall"
+        android:id="@+id/item_reviewRating"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="내용"
+        android:textSize="15dp"
+        android:textColor="#000"
+        android:layout_below="@+id/item_reviewRating"
+        android:layout_marginTop="3dp"
+        android:id="@+id/item_reviewContext"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="유저이름"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/item_reviewContext"
+        android:id="@+id/item_reviewUserName"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_reviewUserName"
+        android:background="@drawable/edittext"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/item_frameLayout">
+
+        <TextView
+            android:layout_width="25dp"
+            android:layout_height="20dp"
+            android:background="@drawable/img_reply"
+            android:id="@+id/item_textView_img_reply"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="디자이너 이름"
+            android:layout_marginLeft="25dp"
+            android:textSize="15dp"
+            android:id="@+id/item_staff_name"
+            android:textColor="#088A08"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="26dp"
+            android:text="내용"
+            android:textColor="#000"
+            android:id="@+id/item_reply"/>
+    </FrameLayout>
+
+</RelativeLayout>
