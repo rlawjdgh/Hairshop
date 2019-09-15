@@ -51,4 +51,13 @@ public class MileageDAO {
   
 		return result;
 	}
+	
+	public int getMyPoint(int login_idx) {
+		
+		SqlSession sqlSession = factory.openSession();
+		int point = sqlSession.selectOne("mileage.get_myPoint", login_idx);
+		sqlSession.close(); 
+ 
+		return point; 
+	}
 }

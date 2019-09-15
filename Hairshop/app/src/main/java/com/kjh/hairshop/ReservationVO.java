@@ -10,6 +10,7 @@ public class ReservationVO {
     private String getTime;
     private String surgery_name;
     private int complete;
+    private String store_name;
 
 
     public int getReservation_idx() {
@@ -74,5 +75,13 @@ public class ReservationVO {
 
     public void setStore_idx(int store_idx) {
         this.store_idx = store_idx;
+    }
+
+    public String getStore_name() {
+        return store_name;
+    }
+
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
     }
 }

@@ -89,7 +89,7 @@ public class ItemMyReservationAdapter extends BaseAdapter {
             holder = (MyHolder)view.getTag();
         }
 
-        holder.staff_name.setText("디자이너 : " + list.get(i).getStaff_name() + " " + list.get(i).getStaff_grade());
+        holder.staff_name.setText("헤어숍 : " + list.get(i).getStore_name() + " (" + list.get(i).getStaff_name() + " " + list.get(i).getStaff_grade() + ")");
         holder.cal_day.setText("예약날짜 : " + list.get(i).getCal_day() + " " + list.get(i).getGetTime());
         holder.surgery_name.setText(list.get(i).getSurgery_name());
 

@@ -113,6 +113,7 @@ public class MyReservationActivity extends AppCompatActivity {
                         vo = new ReservationVO();
                         vo.setReservation_idx(jsonObject.getInt("reservation_idx"));
                         vo.setStore_idx(jsonObject.getInt("store_idx"));
+                        vo.setStore_name(jsonObject.getString("store_name"));
                         vo.setStaff_name(jsonObject.getString("staff_name"));
                         vo.setStaff_grade(jsonObject.getString("staff_grade"));
                         vo.setCal_day(jsonObject.getString("cal_day"));
@@ -144,7 +145,6 @@ public class MyReservationActivity extends AppCompatActivity {
 
                 itemMyReservationAdapter = new ItemMyReservationAdapter(reservationVOS, MyReservationActivity.this, login_idx);
                 lv_myReservation.setAdapter(itemMyReservationAdapter);
-                itemMyReservationAdapter.notifyDataSetChanged();
 
                 handler.sendEmptyMessageDelayed(0, 1250);
             }

@@ -64,8 +64,7 @@ create table reservation (
 );
 
 create table mileage (
-	login_idx number(10), 
-	store_idx number(10),
+	login_idx number(10),
 	user_point number(10)
 );  
 	 

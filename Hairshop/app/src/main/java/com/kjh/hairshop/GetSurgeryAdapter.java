@@ -196,7 +196,7 @@ public class GetSurgeryAdapter extends BaseAdapter {
         @Override
         protected String doInBackground(Void... voids) {
 
-            parameter = "login_idx=" + login_idx + "&store_idx=" + store_idx + "&price=" + price;
+            parameter = "login_idx=" + login_idx + "&price=" + price;
 
             try {
                 String str;

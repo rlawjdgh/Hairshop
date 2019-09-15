@@ -24,17 +24,15 @@ public class AddPointAction extends HttpServlet {
 		String resultStr = "";
 		
 		String login_idx = request.getParameter("login_idx");
-		String store_idx = request.getParameter("store_idx"); 
 		String price = request.getParameter("price");
 		
-		if(login_idx != null && store_idx != null && price != null) {
+		if(login_idx != null && price != null) {
 			
 			int point = (Integer.parseInt(price) * 5 / 100);
 			int result; 
 			
 			 MileageVO vo = new MileageVO();
-			 vo.setLogin_idx(Integer.parseInt(login_idx));
-			 vo.setStore_idx(Integer.parseInt(store_idx));
+			 vo.setLogin_idx(Integer.parseInt(login_idx)); 
 			 
 			 MileageDAO dao = MileageDAO.getInstance();
 			 MileageVO vo2 = dao.findUserPoint(vo); 

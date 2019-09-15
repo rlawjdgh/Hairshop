@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     RelativeLayout drawer;
 
-    TextView btn_myPage;
+    TextView btn_myPage, tv_myPoint;
     Button btn_logout;
 
     BackPressed backPressed;
@@ -85,9 +85,13 @@ public class MainActivity extends AppCompatActivity {
     LocationVO loc_vo;
     Intent intent;
 
+    int login_idx;
+
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
+
+        new getMyPointAsync().execute();
     }
 
     @Override
@@ -107,12 +111,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences( MainActivity.this );
+        login_idx = pref.getInt("login_idx", 0);
+
         listView = findViewById(R.id.listView);
         drawer = findViewById(R.id.drawer);
         drawerLayout = findViewById(R.id.drawerLayout);
         btn_myPage = findViewById(R.id.button_myPage);
         btn_logout = findViewById(R.id.button_logout);
         ll_myReservation = findViewById(R.id.linearLayout_myReservation);
+        tv_myPoint = findViewById(R.id.textView_myPoint);
         
         btn_logout.setOnClickListener(my_drawer);
         ll_myReservation.setOnClickListener(my_drawer);
@@ -136,6 +144,63 @@ public class MainActivity extends AppCompatActivity {
         mapView = findViewById(R.id.map_view);
         locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 500, locationListener);
+
+        new getMyPointAsync().execute();
+    }
+
+    public class getMyPointAsync extends AsyncTask<Void, Void, Integer> {
+
+        String parameter;
+        String serverip = IpInfo.SERVERIP + "getMyPoint.do";
+
+        int point;
+
+        @Override
+        protected Integer doInBackground(Void... voids) {
+
+            parameter = "login_idx=" + login_idx;
+
+            try {
+                String str;
+                URL url = new URL(serverip);
+
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded" );
+                conn.setRequestMethod("POST");
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+
+                osw.write( parameter );
+                osw.flush();
+
+                if( conn.getResponseCode() == conn.HTTP_OK ) {
+
+                    InputStreamReader isr = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                    BufferedReader reader = new BufferedReader(isr);
+
+                    StringBuffer buffer = new StringBuffer();
+                    while ((str = reader.readLine()) != null) {
+                        buffer.append(str);
+                    }
+
+                    JSONArray jsonArray = new JSONArray(buffer.toString());
+                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                    point = jsonObject.getInt("point");
+                }
+
+            } catch (Exception e) {
+                Log.i( "MY", e.toString() );
+            }
+
+            return point;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+
+            tv_myPoint.setText("포인트 : " + point + "p");
+        }
     }
 
     View.OnClickListener my_drawer = new View.OnClickListener() {

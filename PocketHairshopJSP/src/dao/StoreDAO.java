@@ -98,17 +98,18 @@ public class StoreDAO {
 		int result = sqlSession.update("store.update_good", vo); 
 		sqlSession.close(); 
 		
-		return result; 
-		
+		return result; 	
 	}
 	
-	/*public int removeGood(StoreVO vo) {
-		
-		SqlSession sqlSession = factory.openSession( true );
-		int result = sqlSession.update("store.remove_good", vo); 
-		sqlSession.close(); 
-		
-		return result;   
-	}*/
+	public List<StoreVO> findStoreName(int nickName_idx) {
+	
+		SqlSession sqlSession = factory.openSession();
+		List<StoreVO> list = sqlSession.selectList("store.find_storeName", nickName_idx);
+		sqlSession.close();  
+		 
+		return list;
+	}
+	
+	
 	 
 }
