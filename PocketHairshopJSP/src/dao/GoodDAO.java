@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -50,6 +52,15 @@ public class GoodDAO {
 		sqlSession.close();  
 
 		return result;
+	}
+	
+	public List<GoodVO> findMyLikeStore(int login_idx) {
+		
+		SqlSession sqlSession = factory.openSession();
+		List<GoodVO> list = sqlSession.selectList("good.find_LikeStore", login_idx);
+		sqlSession.close();
+		
+		return list; 
 	}
 
 }

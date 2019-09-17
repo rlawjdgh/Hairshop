@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StoreReviewActivity"></activity>
+        <activity android:name=".MyStoreLikeActivity"></activity>
+        <activity android:name=".StoreReviewActivity" />
         <activity android:name=".MyReservationActivity" />
         <activity android:name=".KakaoPayActivity" />
         <activity android:name=".StoreReservationActivity" />

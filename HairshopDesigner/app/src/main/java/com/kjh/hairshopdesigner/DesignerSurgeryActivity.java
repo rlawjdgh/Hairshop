@@ -2,18 +2,15 @@ package com.kjh.hairshopdesigner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.ExifInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,9 +27,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -45,7 +39,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 
 import util.IpInfo;
 import util.Tag;
@@ -73,6 +66,7 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
     boolean check_img = false;
     String img1Path;
     String productName;
+    TextView[] textViews = new TextView[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +90,14 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
         tv_product.setOnClickListener(click);
         btn_add.setOnClickListener(btn_Add);
 
+        textViews[0] = tv_cut;
+        textViews[1] = tv_perm;
+        textViews[2] = tv_chlorination;
+        textViews[3] = tv_clinic;
+        textViews[4] = tv_product;
+
+        tv_cut.setTextColor(Color.RED);
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +120,7 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
     }
 
     View.OnClickListener click = new View.OnClickListener() {
+
         @Override
         public void onClick(View view) {
 
@@ -143,6 +146,7 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
                     category = 4;
                     break;
             }
+
             new getItemSurgery().execute();
         }
     };
@@ -554,6 +558,14 @@ public class DesignerSurgeryActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<SurgeryVO> surgeryVOS) {
+
+            for(int i = 0; i < 5; i++) {
+                if(i == category) {
+                    textViews[i].setTextColor(Color.RED);
+                } else {
+                    textViews[i].setTextColor(Color.BLACK);
+                }
+            }
 
             progressDialog.dismiss();
 

@@ -32,7 +32,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import util.IpInfo;
-import util.Tag;
 
 public class StoreReservationActivity extends AppCompatActivity {
 
@@ -44,6 +43,7 @@ public class StoreReservationActivity extends AppCompatActivity {
     Button[] btn_time;
     ListView listView;
 
+    TextView[] textViews = new TextView[4];
     Intent intent;
     GetSurgeryAdapter getSurgeryAdapter;
     DatePickerDialog.OnDateSetListener dateListener;
@@ -89,6 +89,11 @@ public class StoreReservationActivity extends AppCompatActivity {
         tv_perm.setOnClickListener(sur_click);
         tv_chlorination.setOnClickListener(sur_click);
         tv_clinic.setOnClickListener(sur_click);
+
+        textViews[0] = tv_cut;
+        textViews[1] = tv_perm;
+        textViews[2] = tv_chlorination;
+        textViews[3] = tv_clinic;
 
         btn_time = new Button[8];
         for(int i = 0; i < btn_time.length; i++) {
@@ -490,6 +495,14 @@ public class StoreReservationActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<SurgeryVO> surgeryVOS) {
+
+            for(int i = 0; i < 4; i++) {
+                if(i == category) {
+                    textViews[i].setTextColor(Color.RED);
+                } else {
+                    textViews[i].setTextColor(Color.BLACK);
+                }
+            }
 
             if(surgeryVOS.size() == 0) {
 

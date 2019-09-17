@@ -15,5 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="remove_StoreGood">
 		delete from good where login_idx = #{login_idx} and store_idx = #{store_idx}
 	</delete>
+	
+	<select id="find_LikeStore" resultType="vo.GoodVO">
+		select * from good where login_idx = #{login_idx}
+	</select> 
 
 </mapper>     

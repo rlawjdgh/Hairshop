@@ -148,7 +148,7 @@ public class PageReservation extends Fragment {
                 listView.setAdapter(itemReservationAdapter);
                 itemReservationAdapter.notifyDataSetChanged();
 
-                handler.sendEmptyMessageDelayed(0, 1250);
+                handler.sendEmptyMessageDelayed(0, 5000);
             }
         }
     }

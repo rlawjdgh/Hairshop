@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     GetStoreAllAdapter getStoreAllAdapter;
     ListView listView;
-    LinearLayout ll_myReservation;
+    LinearLayout ll_myReservation, ll_myLike;
 
     MapView mapView;
     MapPoint myPoint, storePoint;
@@ -120,10 +120,12 @@ public class MainActivity extends AppCompatActivity {
         btn_myPage = findViewById(R.id.button_myPage);
         btn_logout = findViewById(R.id.button_logout);
         ll_myReservation = findViewById(R.id.linearLayout_myReservation);
+        ll_myLike =findViewById(R.id.linearLayout_myLike);
         tv_myPoint = findViewById(R.id.textView_myPoint);
         
         btn_logout.setOnClickListener(my_drawer);
         ll_myReservation.setOnClickListener(my_drawer);
+        ll_myLike.setOnClickListener(my_drawer);
 
         btn_myPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +236,13 @@ public class MainActivity extends AppCompatActivity {
                     intent = new Intent(MainActivity.this, MyReservationActivity.class);
                     intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
                     startActivity(intent);
-                    finish();
+                    break;
+
+                case R.id.linearLayout_myLike:
+
+                    intent = new Intent(MainActivity.this, MyStoreLikeActivity.class);
+                    intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                    startActivity(intent);
                     break;
             }
         }

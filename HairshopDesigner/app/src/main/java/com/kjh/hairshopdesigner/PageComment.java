@@ -134,7 +134,7 @@ public class PageComment extends Fragment {
                 listView.setAdapter(itemCommentAdapter);
                 itemCommentAdapter.notifyDataSetChanged();
 
-                handler.sendEmptyMessageDelayed(0, 1250);
+                handler.sendEmptyMessageDelayed(0, 5000);
             }
         }
     }
