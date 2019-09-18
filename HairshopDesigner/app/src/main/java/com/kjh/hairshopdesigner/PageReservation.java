@@ -160,7 +160,6 @@ public class PageReservation extends Fragment {
 
             if(msg.what == 0) {
                 new getReservation().execute();
-                handler.removeMessages(0);
             }
         }
     };

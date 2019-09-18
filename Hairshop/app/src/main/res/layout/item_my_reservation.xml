@@ -44,13 +44,6 @@
             android:textColor="#000"
             android:id="@+id/textView_complete" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="#000"
-            android:text=""
-            android:id="@+id/textView_reviewComplete"/>
     </LinearLayout>
 
 </LinearLayout>

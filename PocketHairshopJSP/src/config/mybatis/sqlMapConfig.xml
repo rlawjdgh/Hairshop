@@ -22,5 +22,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="config/mybatis/mapper/mileage.xml" /> 
 		<mapper resource="config/mybatis/mapper/review.xml" /> 
 		<mapper resource="config/mybatis/mapper/reply.xml" />
-	</mappers>    
+		<mapper resource="config/mybatis/mapper/product.xml" />
+	</mappers>     
 </configuration>    

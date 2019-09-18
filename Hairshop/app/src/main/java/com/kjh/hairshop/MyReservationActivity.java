@@ -145,8 +145,6 @@ public class MyReservationActivity extends AppCompatActivity {
 
                 itemMyReservationAdapter = new ItemMyReservationAdapter(reservationVOS, MyReservationActivity.this, login_idx);
                 lv_myReservation.setAdapter(itemMyReservationAdapter);
-
-                handler.sendEmptyMessageDelayed(0, 2000);
             }
         }
     }
@@ -158,7 +156,6 @@ public class MyReservationActivity extends AppCompatActivity {
 
             if(msg.what == 0) {
                 new getMyReservationAsync().execute(login_idx);
-                handler.removeMessages(0);
             }
         }
     };

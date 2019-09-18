@@ -3,6 +3,7 @@
     package="com.kjh.hairshop">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -20,7 +21,6 @@
         <activity android:name=".MyStoreLikeActivity" />
         <activity android:name=".StoreReviewActivity" />
         <activity android:name=".MyReservationActivity" />
-        <activity android:name=".KakaoPayActivity" />
         <activity android:name=".StoreReservationActivity" />
         <activity android:name=".StoreMoreInfoActivity" />
         <activity android:name=".StoreInfoActivity" />

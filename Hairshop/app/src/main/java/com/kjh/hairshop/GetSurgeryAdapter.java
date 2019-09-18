@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,6 +26,16 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+import kr.co.bootpay.Bootpay;
+import kr.co.bootpay.BootpayAnalytics;
+import kr.co.bootpay.CancelListener;
+import kr.co.bootpay.CloseListener;
+import kr.co.bootpay.ConfirmListener;
+import kr.co.bootpay.DoneListener;
+import kr.co.bootpay.ErrorListener;
+import kr.co.bootpay.ReadyListener;
+import kr.co.bootpay.enums.Method;
+import kr.co.bootpay.enums.PG;
 import util.IpInfo;
 import util.Tag;
 
@@ -65,6 +77,7 @@ public class GetSurgeryAdapter extends BaseAdapter {
 
         MyHolder holder;
 
+        BootpayAnalytics.init(storeReservationActivity, "5d511cdf0627a80027ea5b8e");
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences( storeReservationActivity );
         login_idx = pref.getInt("login_idx", 0);
 
@@ -96,22 +109,59 @@ public class GetSurgeryAdapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        /*Intent intent = new Intent(storeReservationActivity, KakaoPayActivity.class);
-                        intent.putExtra("staff_idx", staff_idx);
-                        intent.putExtra("regdate", cal_day);
-                        intent.putExtra("time", getTime);
-                        intent.putExtra("surgery_name", list.get(i).getName());
-                        intent.putExtra("price", list.get(i).getPrice());
-
-                        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
-                        storeReservationActivity.startActivity(intent);*/
-
                         price = list.get(i).getPrice();
 
                         if(getTime.equals("") || cal_day.equals("")) {
                             Toast.makeText(storeReservationActivity, "날짜와 시간을 확인해주세요", Toast.LENGTH_SHORT).show();
                         } else {
-                            new ReservationAsync().execute(list.get(i).getName(), price);
+
+                            Bootpay.init(storeReservationActivity)
+                                    .setApplicationId("5d511cdf0627a80027ea5b8e")
+                                    .setPG(PG.KAKAO)
+                                    .setMethod(Method.EASY)
+                                    .setName(list.get(i).getName())
+                                    .setOrderId(list.get(i).getName())
+                                    .setPrice(list.get(i).getPrice())
+                                    .onConfirm(new ConfirmListener() {
+                                        @Override
+                                        public void onConfirm(@Nullable String message) {
+                                            if (0 < 10) Bootpay.confirm(message);
+                                            else Bootpay.removePaymentWindow();
+                                            Log.d("confirm", message);
+                                        }
+                                    })
+                                    .onDone(new DoneListener() {
+                                        @Override
+                                        public void onDone(@Nullable String message) {
+
+                                            new ReservationAsync().execute(list.get(i).getName(), price);
+                                        }
+                                    })
+                                    .onReady(new ReadyListener() {
+                                        @Override
+                                        public void onReady(@Nullable String message) {
+                                            Log.d("ready", message);
+                                        }
+                                    })
+                                    .onCancel(new CancelListener() {
+                                        @Override
+                                        public void onCancel(@Nullable String message) {
+                                            Log.d("cancel", message);
+                                        }
+                                    })
+                                    .onError(new ErrorListener() {
+                                        @Override
+                                        public void onError(@Nullable String message) {
+                                            Log.d("error", message);
+                                        }
+                                    })
+                                    .onClose(new CloseListener() {
+                                        @Override
+                                        public void onClose(String message) {
+                                            Log.d("close", "close");
+                                        }
+                                    })
+                                    .show();
                         }
                     }
                 })

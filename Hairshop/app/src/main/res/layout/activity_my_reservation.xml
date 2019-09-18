@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="현재 예약을 확인하세요"
+        android:text="현재 예약을 확인 및 리뷰를 남겨주세요!"
         android:gravity="center"/>
 
     <TextView
