@@ -40,4 +40,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from store where nickName_idx = #{ nickName_idx }
 	</select>
 	
+	<select id="search_store" resultType="vo.StoreVO"> 
+		select * from store where name LIKE '%'||#{search}||'%'
+	</select> 
+	
 </mapper>  

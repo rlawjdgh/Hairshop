@@ -109,5 +109,14 @@ public class StoreDAO {
 		 
 		return list;
 	}
+	
+	public List<StoreVO> searchStore(String search) {
+		
+		SqlSession sqlSession = factory.openSession();
+		List<StoreVO> list = sqlSession.selectList("store.search_store", search);
+		sqlSession.close();  
+		  
+		return list;
+	}
 	 
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StoreSearchActivity"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FFFF00">
+
+        <Button
+            android:id="@+id/button_searchBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_back"
+            android:layout_marginTop="5dp"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="검색"
+        android:textColor="#000"
+        android:textSize="27dp"
+        android:paddingTop="17dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="검색한 헤어숍 목록입니다."
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="존재하지 않는 헤어숍입니다."
+        android:textSize="20dp"
+        android:gravity="center"
+        android:id="@+id/textView_noSearchStore"
+        android:visibility="gone"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/listView_search"></ListView>
+
+</LinearLayout>

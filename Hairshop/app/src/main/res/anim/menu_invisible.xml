@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--set 은 여거래의 애니메이션 속성(투명도, 위차값, 회전... 등) 을 하나로 묶어서 관리할
+        수 있도록 하는 영역-->
+
+    <!--
+    toAlpha : 끝 알파값 0.0이면 완전 투명
+    fromAlpha="1.0" : 시작 알파값 1.0이면 완전 불투명
+    duration="300" : 애니메이션 진행 시간
+    -->
+    <alpha android:toAlpha="0.0"
+            android:fromAlpha="1.0"
+            android:duration="300"/>
+
+    <!--
+      fromXDelta : 시작 x좌표 위치
+      fromYDelta : 시작 y좌표 위치
+      toXDelta : 끝 x좌표 위치
+      toYDelta : 끝 y좌표 위치
+    -->
+    <translate android:fromXDelta="0%p"
+                android:fromYDelta="0%p"
+                android:toXDelta="-100%p"
+                android:toYDelta="0%p"
+                android:duration="300"/>
+</set>

@@ -26,7 +26,11 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -63,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     RelativeLayout drawer;
 
-    TextView btn_myPage, tv_myPoint;
+    TextView btn_myPage, btn_search, tv_myPoint;
     Button btn_logout;
+    EditText et_searchStore;
+    Animation menu_visible_ani;
 
     BackPressed backPressed;
     LocationManager locationManager;
@@ -119,9 +125,11 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawerLayout);
         btn_myPage = findViewById(R.id.button_myPage);
         btn_logout = findViewById(R.id.button_logout);
+        btn_search = findViewById(R.id.textView_search);
         ll_myReservation = findViewById(R.id.linearLayout_myReservation);
         ll_myLike =findViewById(R.id.linearLayout_myLike);
         tv_myPoint = findViewById(R.id.textView_myPoint);
+        et_searchStore = findViewById(R.id.editText_searchStore);
         
         btn_logout.setOnClickListener(my_drawer);
         ll_myReservation.setOnClickListener(my_drawer);
@@ -131,6 +139,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(drawer);
+            }
+        });
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                if(et_searchStore.getVisibility() == View.VISIBLE) {
+
+                    if(!et_searchStore.getText().toString().equals("")) {
+
+                        intent = new Intent(MainActivity.this, StoreSearchActivity.class);
+                        intent.putExtra("search", et_searchStore.getText().toString());
+                        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                        startActivity(intent);
+                    }
+
+                    menu_visible_ani = AnimationUtils.loadAnimation(MainActivity.this, R.anim.menu_invisible);
+                    et_searchStore.startAnimation(menu_visible_ani);
+                    et_searchStore.setVisibility(v.INVISIBLE);
+                    et_searchStore.setText("");
+
+                    imm.hideSoftInputFromWindow(et_searchStore.getWindowToken(), 0);
+                } else {
+                    menu_visible_ani = AnimationUtils.loadAnimation(MainActivity.this, R.anim.menu_visible);
+                    et_searchStore.startAnimation(menu_visible_ani);
+                    et_searchStore.setVisibility(v.VISIBLE);
+
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                }
             }
         });
 

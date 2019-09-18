@@ -240,7 +240,7 @@ public class GetSurgeryAdapter extends BaseAdapter {
             if(s.equals("success")) {
                 Toast.makeText(storeReservationActivity, "예약이 완료되었습니다.", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(storeReservationActivity, MainActivity.class);
+                Intent intent = new Intent(storeReservationActivity, MyReservationActivity.class);
                 intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
                 storeReservationActivity.startActivity(intent);
             }

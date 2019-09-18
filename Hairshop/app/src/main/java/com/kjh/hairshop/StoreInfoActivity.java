@@ -36,7 +36,7 @@ import util.Tag;
 public class StoreInfoActivity extends AppCompatActivity {
 
     TextView tv_storeInfo_name, tv_storeInfo_staff;
-    Button btn_storeLike, btn_storeInfo, btn_back, btn_storeReview, btn_sotre_product;
+    Button btn_storeLike, btn_storeInfo, btn_back, btn_storeReview, btn_store_product;
     GridView gridView;
     ViewPager viewPager;
     Intent intent;
@@ -58,6 +58,7 @@ public class StoreInfoActivity extends AppCompatActivity {
         btn_storeLike = findViewById(R.id.button_storeInfo_like);
         btn_storeInfo = findViewById(R.id.button_storeInfo_info);
         btn_storeReview = findViewById(R.id.button_storeinfo_review);
+        btn_store_product = findViewById(R.id.button_storeinfo_product);
         btn_back = findViewById(R.id.button_storeinfo_back);
         tv_storeInfo_name = findViewById(R.id.textView_storeInfo_name);
         tv_storeInfo_staff = findViewById(R.id.textView_storeInfo_staff);
@@ -75,6 +76,8 @@ public class StoreInfoActivity extends AppCompatActivity {
         btn_storeInfo.setOnClickListener(click);
         btn_storeLike.setOnClickListener(click);
         btn_storeReview.setOnClickListener(click);
+        btn_store_product.setOnClickListener(click);
+
 
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +120,15 @@ public class StoreInfoActivity extends AppCompatActivity {
                 case R.id.button_storeinfo_review:
 
                     intent = new Intent(StoreInfoActivity.this, StoreReviewActivity.class);
+                    intent.putExtra("store_idx", store_idx);
+
+                    intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                    startActivity(intent);
+                    break;
+
+                case R.id.button_storeinfo_product:
+
+                    intent = new Intent(StoreInfoActivity.this, StoreProductActivity.class);
                     intent.putExtra("store_idx", store_idx);
 
                     intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );

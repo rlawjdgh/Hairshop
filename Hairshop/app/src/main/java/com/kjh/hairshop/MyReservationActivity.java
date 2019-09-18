@@ -146,7 +146,7 @@ public class MyReservationActivity extends AppCompatActivity {
                 itemMyReservationAdapter = new ItemMyReservationAdapter(reservationVOS, MyReservationActivity.this, login_idx);
                 lv_myReservation.setAdapter(itemMyReservationAdapter);
 
-                handler.sendEmptyMessageDelayed(0, 1250);
+                handler.sendEmptyMessageDelayed(0, 2000);
             }
         }
     }
@@ -173,6 +173,5 @@ public class MyReservationActivity extends AppCompatActivity {
         Intent intent = new Intent(MyReservationActivity.this, MainActivity.class);
         intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
         startActivity(intent);
-        finish();
     }
 }
