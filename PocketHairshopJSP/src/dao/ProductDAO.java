@@ -15,7 +15,7 @@ public class ProductDAO {
 	static ProductDAO single = null;
 	SqlSessionFactory factory = null;
 
-	public static ProductDAO getInstance() {
+	public static ProductDAO getInstance() { 
 
 		if (single == null) {
 			single = new ProductDAO();
@@ -35,6 +35,15 @@ public class ProductDAO {
 		sqlSession.close();  
 
 		return result;  
+	}
+	
+	public List<ProductVO> getBuyProduct(int login_idx) {
+		
+		SqlSession sqlSession = factory.openSession(true);
+		List<ProductVO> list = sqlSession.selectList("product.get_BuyProduct", login_idx);
+		sqlSession.close();  
+
+		return list; 
 	}
 
 }

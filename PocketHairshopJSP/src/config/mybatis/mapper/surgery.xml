@@ -19,5 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update_photo" parameterType="vo.SurgeryVO">
 		update surgery set photo = #{ photo } where nickName_idx = #{ nickName_idx } and category = #{category} and name = #{name} 
 	</update>
+	
+	<select id="get_Buysurgery" resultType="vo.SurgeryVO">
+		select * from surgery where surgery_idx = #{surgery_idx} 
+	</select> 
 
 </mapper>      

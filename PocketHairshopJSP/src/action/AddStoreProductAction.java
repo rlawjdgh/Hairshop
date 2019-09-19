@@ -36,7 +36,7 @@ public class AddStoreProductAction extends HttpServlet {
 			int result = dao.addStoreProduct(vo); 
 			 
 			if( result >= 1 ) {
-				resultStr = "success";
+				resultStr = "success"; 
 			}else {
 				resultStr = "fail";
 			}

@@ -3,7 +3,7 @@
     package="com.kjh.hairshop">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StoreSearchActivity"></activity>
+        <activity android:name=".MyProductActivity"></activity>
+        <activity android:name=".StoreSearchActivity" />
         <activity android:name=".StoreProductActivity" />
         <activity android:name=".MyStoreLikeActivity" />
         <activity android:name=".StoreReviewActivity" />

@@ -63,7 +63,14 @@ public class SurgeryDAO {
 		sqlSession.close();
 		
 		return result; 
-		
 	}
 	
+	public List<SurgeryVO> getBuyProduct(int surgery_idx) {
+		
+		SqlSession sqlSession = factory.openSession(); 
+		List<SurgeryVO> list = sqlSession.selectList("surgery.get_Buysurgery", surgery_idx);
+		sqlSession.close(); 
+		
+		return list;  
+	}
 }

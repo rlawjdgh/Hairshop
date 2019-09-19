@@ -4,6 +4,7 @@ public class ProductVO {
 	
 	private int login_idx;
 	private int surgery_idx;
+	private String regdate;
 	 
 	public int getLogin_idx() {
 		return login_idx;
@@ -17,7 +18,14 @@ public class ProductVO {
 	public void setSurgery_idx(int surgery_idx) {
 		this.surgery_idx = surgery_idx;
 	}
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+	  
 	
-	
+	 
 
 }

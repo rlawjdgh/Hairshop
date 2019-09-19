@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyProductActivity"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FFFF00">
+
+        <Button
+            android:id="@+id/button_myProductBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/btn_back"
+            android:layout_marginTop="5dp"/>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="상품"
+        android:textColor="#000"
+        android:textSize="27dp"
+        android:paddingTop="17dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="내가 구매한 상품을 확인하세요"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="구매한 상품이 없습니다."
+        android:textSize="20dp"
+        android:gravity="center"
+        android:id="@+id/textView_noMyProduct"
+        android:visibility="gone"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listView_myProduct"
+        android:layout_marginTop="10dp">
+    </ListView>
+
+</LinearLayout>

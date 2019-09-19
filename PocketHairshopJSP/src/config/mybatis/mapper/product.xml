@@ -5,7 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="product">
  
 	<insert id="add_product" parameterType="vo.ProductVO"> 
-		insert into product values ( #{login_idx}, #{surgery_idx} ) 
-	</insert>  
-	  
+		insert into product values ( #{login_idx}, #{surgery_idx}, sysdate ) 
+	</insert>   
+	
+	<select id="get_BuyProduct" resultType="vo.ProductVO">
+		select * from product where login_idx = #{login_idx} order by regdate desc
+	</select>  
+	    
 </mapper>     

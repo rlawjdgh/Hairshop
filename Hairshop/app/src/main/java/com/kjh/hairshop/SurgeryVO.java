@@ -8,6 +8,7 @@ public class SurgeryVO {
     private String name;
     private int price;
     private String photo;
+    private String regdate;
 
 
     public int getSurgery_idx() {
@@ -56,5 +57,13 @@ public class SurgeryVO {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public String getRegdate() {
+        return regdate;
+    }
+
+    public void setRegdate(String regdate) {
+        this.regdate = regdate;
     }
 }

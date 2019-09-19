@@ -90,7 +90,8 @@ create table reply (
 
 create table product (
 	login_idx number(10),
-	surgery_idx number(10)
+	surgery_idx number(10),
+	regdate date  
 );
 
  

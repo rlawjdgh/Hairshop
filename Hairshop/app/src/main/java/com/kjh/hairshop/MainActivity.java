@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     GetStoreAllAdapter getStoreAllAdapter;
     ListView listView;
-    LinearLayout ll_myReservation, ll_myLike;
+    LinearLayout ll_myReservation, ll_myLike, ll_myProduct;
 
     MapView mapView;
     MapPoint myPoint, storePoint;
@@ -127,13 +127,15 @@ public class MainActivity extends AppCompatActivity {
         btn_logout = findViewById(R.id.button_logout);
         btn_search = findViewById(R.id.textView_search);
         ll_myReservation = findViewById(R.id.linearLayout_myReservation);
-        ll_myLike =findViewById(R.id.linearLayout_myLike);
+        ll_myLike = findViewById(R.id.linearLayout_myLike);
+        ll_myProduct = findViewById(R.id.linearLayout_myProduct);
         tv_myPoint = findViewById(R.id.textView_myPoint);
         et_searchStore = findViewById(R.id.editText_searchStore);
         
         btn_logout.setOnClickListener(my_drawer);
         ll_myReservation.setOnClickListener(my_drawer);
         ll_myLike.setOnClickListener(my_drawer);
+        ll_myProduct.setOnClickListener(my_drawer);
 
         btn_myPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -281,6 +283,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.linearLayout_myLike:
 
                     intent = new Intent(MainActivity.this, MyStoreLikeActivity.class);
+                    intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+                    startActivity(intent);
+                    break;
+
+                case R.id.linearLayout_myProduct:
+
+                    intent = new Intent(MainActivity.this, MyProductActivity.class);
                     intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
                     startActivity(intent);
                     break;
