@@ -81,6 +81,7 @@ public class DesignerStoreActivity extends AppCompatActivity {
     boolean insert = false;
     boolean check_img1 = false;
     boolean check_img2 = false;
+    boolean check_back = false;
 
     int nickName_idx;
 
@@ -526,6 +527,8 @@ public class DesignerStoreActivity extends AppCompatActivity {
 
                 if(!photo1.equals("null") && !photo1.equals("")) {
                     new GetStorePhotoAsync().execute( photo1, "img1" );
+                } else {
+                    check_back = true;
                 }
                 if(!photo2.equals("null") && !photo2.equals("")) {
                     new GetStorePhotoAsync().execute( photo2, "img2" );
@@ -960,11 +963,14 @@ public class DesignerStoreActivity extends AppCompatActivity {
     public void onBackPressed() {
         
         if(!check_img1) {
-            Toast.makeText(this, "사진을 저장해주세요", Toast.LENGTH_SHORT).show();
+
+            if(check_back) {
+                move();
+            } else {
+                Toast.makeText(this, "사진을 저장해주세요", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            intent = new Intent( DesignerStoreActivity.this, DesignerMainActivity.class );
-            intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
-            startActivity(intent);
+            move();
         }
     }
 
@@ -972,9 +978,14 @@ public class DesignerStoreActivity extends AppCompatActivity {
 
         @Override
         public void handleMessage(@NonNull Message msg) {
-            intent = new Intent( DesignerStoreActivity.this, DesignerMainActivity.class );
-            intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
-            startActivity(intent);
+            move();
         }
     };
+
+    public void move() {
+
+        intent = new Intent( DesignerStoreActivity.this, DesignerMainActivity.class );
+        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+        startActivity(intent);
+    }
 }

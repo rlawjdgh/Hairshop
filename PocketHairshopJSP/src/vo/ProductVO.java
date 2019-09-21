@@ -2,6 +2,7 @@ package vo;
 
 public class ProductVO {
 	
+	private int product_idx;
 	private int login_idx;
 	private int surgery_idx;
 	private String regdate;
@@ -24,6 +25,13 @@ public class ProductVO {
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
+	public int getProduct_idx() {
+		return product_idx;
+	}
+	public void setProduct_idx(int product_idx) {
+		this.product_idx = product_idx;
+	}
+	 
 	  
 	
 	 

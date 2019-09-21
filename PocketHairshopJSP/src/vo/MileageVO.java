@@ -3,7 +3,6 @@ package vo;
 public class MileageVO {
 
 	private int login_idx;
-	private int store_idx;
 	private int user_point;
 	
 	 
@@ -13,12 +12,6 @@ public class MileageVO {
 	public void setLogin_idx(int login_idx) {
 		this.login_idx = login_idx;
 	}
-	public int getStore_idx() {
-		return store_idx;
-	}
-	public void setStore_idx(int store_idx) {
-		this.store_idx = store_idx;
-	}
 	public int getUser_point() {
 		return user_point;
 	}
@@ -26,5 +19,5 @@ public class MileageVO {
 		this.user_point = user_point;
 	}
 	
-	
+	 
 }

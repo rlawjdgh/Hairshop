@@ -60,4 +60,13 @@ public class MileageDAO {
  
 		return point; 
 	}
+	
+	public int removePoint(MileageVO vo) {
+		 
+		SqlSession sqlSession = factory.openSession(true);
+		int result = sqlSession.update("mileage.update_myPoint", vo);
+		sqlSession.close();   
+  
+		return result; 
+	} 
 }

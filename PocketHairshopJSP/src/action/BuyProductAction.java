@@ -30,7 +30,7 @@ public class BuyProductAction extends HttpServlet {
 		if(login_idx != null) {
 			
 			ProductDAO pDao = ProductDAO.getInstance();
-			SurgeryDAO sDao = SurgeryDAO.getInstance();
+			SurgeryDAO sDao = SurgeryDAO.getInstance(); 
 			List<ProductVO> pList = pDao.getBuyProduct(Integer.parseInt(login_idx)); 
 			
 			String arr = "[";
@@ -41,11 +41,11 @@ public class BuyProductAction extends HttpServlet {
 				
 				for(int j = 0; j < sList.size(); j++) {
 					
-					String str = String.format("{'name':'%s', 'photo':'%s', 'regdate':'%s'}", sList.get(i).getName(), sList.get(i).getPhoto(), pList.get(i).getRegdate());
+					String str = String.format("{'product_idx':'%d', 'name':'%s', 'photo':'%s', 'regdate':'%s'}", pList.get(i).getProduct_idx(), sList.get(j).getName(), sList.get(j).getPhoto(), pList.get(i).getRegdate());
 					arr += str; 
-					
+					 
 					if(j != pList.size() -1) {  
-						arr += ", ";    
+						arr += ", ";      
 					}  
 				}
 			}

@@ -88,7 +88,10 @@ create table reply (
 	context varchar2(100)
 );
 
+CREATE sequence product_seq
+
 create table product (
+	product_idx number(10),
 	login_idx number(10),
 	surgery_idx number(10),
 	regdate date  

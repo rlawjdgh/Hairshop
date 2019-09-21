@@ -41,13 +41,13 @@ public class GetMyLikeStoreAction extends HttpServlet {
 				
 				for(int j = 0; j < sList.size(); j++) {
 					
-					String str = String.format("{'nickName_idx':'%d', 'name':'%s', 'photo1':'%s', 'info':'%s', 'good':'%s'}", sList.get(i).getNickName_idx(), sList.get(i).getName(), sList.get(i).getPhoto1(), sList.get(i).getInfo(), sList.get(i).getGood());
+					String str = String.format("{'nickName_idx':'%d', 'name':'%s', 'photo1':'%s', 'info':'%s', 'good':'%s'}", sList.get(j).getNickName_idx(), sList.get(j).getName(), sList.get(j).getPhoto1(), sList.get(j).getInfo(), sList.get(j).getGood());
 					arr += str; 
 					
 					if(j != gList.size() -1) {  
 						arr += ", ";   
 					}
-				}
+				}  
 			} 
 			
 			arr += "]";

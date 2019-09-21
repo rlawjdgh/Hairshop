@@ -21,10 +21,9 @@ public class CheckMemberAction extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		request.setCharacterEncoding("utf-8"); 
-		
-		String result = "";
+		 
 		String idx = request.getParameter("idx");
-			
+			 
 		if(idx != null) {
 			 
 			MemberDAO dao = MemberDAO.getInstance();

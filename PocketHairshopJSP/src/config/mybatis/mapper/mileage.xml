@@ -19,5 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="get_myPoint" parameterType="int" resultType="int">
 		select user_point from mileage where login_idx = #{login_idx}
 	</select> 
+
+	<update id="update_myPoint" parameterType="vo.StaffVO">
+		update mileage set user_point = #{ user_point } where login_idx = #{ login_idx }  
+	</update>
 	 
 </mapper>           
