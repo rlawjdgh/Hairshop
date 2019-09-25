@@ -123,12 +123,12 @@
                 android:text="Reservation"
                 android:textSize="20dp" />
 
-            <GridView
+            <ListView
                 android:id="@+id/gridView_storeInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textView_storeInfo_staff"
-                android:numColumns="2"></GridView>
+                android:numColumns="2"></ListView>
 
         </RelativeLayout>
 

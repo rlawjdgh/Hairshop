@@ -23,5 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="find_staffName" parameterType="int" resultType="String">
 		select staff_name from review where review_idx = #{ review_idx }
 	</select> 
-
+	
+	<select id="findRating" resultType="vo.ReviewVO" parameterType="int">
+		select * from review where reservation_idx = #{reservation_idx} 
+	</select>   
 </mapper>      

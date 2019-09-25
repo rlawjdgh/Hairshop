@@ -73,5 +73,14 @@ public class ReviewDAO {
 		
 		return result;
 	}
+	
+	public List<ReviewVO> findRating(int reservation_idx) {
+		 
+		SqlSession sqlSession = factory.openSession();  
+		List<ReviewVO> list = sqlSession.selectList("review.findRating", reservation_idx);
+		sqlSession.close(); 
+		 
+		return list;  
+	}
 
 }

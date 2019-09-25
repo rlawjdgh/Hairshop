@@ -1,36 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:padding="10dp">
 
     <ImageView
-        android:layout_marginTop="20dp"
         android:id="@+id/item_storeInfo_img"
-        android:layout_width="170dp"
-        android:layout_height="140dp"
+        android:layout_width="100dp"
+        android:layout_height="85dp"
         android:scaleType="fitXY"
         android:src="#e0e0e0" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="이름"
-        android:textColor="#1d1d1d"
-        android:textSize="18dp"
-        android:gravity="center"
-        android:id="@+id/item_storeInfo_name"/>
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp">
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginTop="10dp">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="이름"
+               android:textColor="#1d1d1d"
+               android:textSize="18dp"
+               android:id="@+id/item_storeInfo_name"/>
+       </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/item_storeInfo_info"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="한마디"
-        android:gravity="center"
-        android:textSize="18dp" />
+        <TextView
+            android:id="@+id/item_storeInfo_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="한마디"
+            android:textSize="18dp" />
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:paddingTop="3dp">
+
+           <RatingBar
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               style="?android:attr/ratingBarStyleSmall"
+               android:id="@+id/item_staffRating"
+               android:layout_marginTop="3dp"
+               android:numStars="1"
+               android:rating="1"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="2dp"
+               android:textSize="15dp"
+               android:id="@+id/item_staffNum"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="@drawable/img_reservation"
+               android:layout_marginLeft="150dp"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="예약하기"/>
+       </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

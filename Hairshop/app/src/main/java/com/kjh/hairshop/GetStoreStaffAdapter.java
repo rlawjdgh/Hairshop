@@ -6,13 +6,20 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -63,8 +70,10 @@ public class GetStoreStaffAdapter extends BaseAdapter {
             holder.imageView = view.findViewById(R.id.item_storeInfo_img);
             holder.name = view.findViewById(R.id.item_storeInfo_name);
             holder.info = view.findViewById(R.id.item_storeInfo_info);
+            holder.staffNum = view.findViewById(R.id.item_staffNum);
 
             new getItemStaffImg(holder.imageView, vo).execute();
+            new getRatingNumAsync(holder.staffNum, list.get(i).getStaff_idx()).execute();
 
             view.setTag(holder);
 
@@ -93,6 +102,91 @@ public class GetStoreStaffAdapter extends BaseAdapter {
         });
 
         return view;
+    }
+
+    public class getRatingNumAsync extends AsyncTask<Void, Void, ArrayList<ReviewVO>> {
+
+        String parameter = "";
+        String serverip = IpInfo.SERVERIP + "getRatingNum.do";
+
+        ArrayList<ReviewVO> list;
+        TextView textView;
+        int staff_idx;
+
+        public getRatingNumAsync(TextView textView, int staff_idx) {
+            this.textView = textView;
+            this.staff_idx = staff_idx;
+        }
+
+        @Override
+        protected ArrayList<ReviewVO> doInBackground(Void... voids) {
+
+            parameter = "staff_idx=" + staff_idx;
+
+            try {
+                String str;
+                URL url = new URL(serverip);
+
+                HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded" );
+                conn.setRequestMethod("POST");
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+
+                osw.write( parameter );
+                osw.flush();
+
+
+                if( conn.getResponseCode() == conn.HTTP_OK ) {
+
+                    InputStreamReader isr = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                    BufferedReader reader = new BufferedReader(isr);
+
+                    StringBuffer buffer = new StringBuffer();
+                    while ((str = reader.readLine()) != null) {
+                        buffer.append(str);
+                    }
+
+                    JSONArray jsonArray = new JSONArray(buffer.toString());
+                    JSONObject jsonObject = null;
+
+                    list = new ArrayList();
+
+                    for( int i = 0; i < jsonArray.length(); i++ ) {
+                        jsonObject = jsonArray.getJSONObject(i);
+
+                        ReviewVO vo = new ReviewVO();
+                        vo.setRating(jsonObject.getInt("rating"));
+
+                        list.add(vo);
+                    }
+                }
+            } catch (Exception e) {
+                Log.i( "MY", e.toString());
+            }
+
+            return list;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<ReviewVO> reviewVOS) {
+
+            if(reviewVOS.size() == 0) {
+                textView.setText("0/5");
+            } else {
+
+                int hap = 0;
+
+                for(int i = 0; i < reviewVOS.size(); i++) {
+
+                    hap += reviewVOS.get(i).getRating();
+                }
+
+                String avg = String.format("%.1f", (float)hap / reviewVOS.size());
+                textView.setText(avg + "/5");
+
+            }
+        }
     }
 
     public class getItemStaffImg extends AsyncTask<Void, Void, Bitmap> {
@@ -141,5 +235,6 @@ public class GetStoreStaffAdapter extends BaseAdapter {
         ImageView imageView;
         TextView name;
         TextView info;
+        TextView staffNum;
     }
 }

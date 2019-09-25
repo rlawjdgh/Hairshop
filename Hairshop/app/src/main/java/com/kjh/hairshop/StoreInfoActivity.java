@@ -17,6 +17,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -37,7 +38,7 @@ public class StoreInfoActivity extends AppCompatActivity {
 
     TextView tv_storeInfo_name, tv_storeInfo_staff;
     Button btn_storeLike, btn_storeInfo, btn_back, btn_storeReview, btn_store_product;
-    GridView gridView;
+    ListView gridView;
     ViewPager viewPager;
     Intent intent;
 
@@ -345,7 +346,8 @@ public class StoreInfoActivity extends AppCompatActivity {
 
             getStoreStaffAdapter = new GetStoreStaffAdapter(StoreInfoActivity.this, staffVOS, storeVO.getName(), storeVO.getNickName_idx());
             gridView.setAdapter(getStoreStaffAdapter);
-            Utility.setGridViewHeightBasedOnChildren(gridView, 2);
+            //Utility.setGridViewHeightBasedOnChildren(gridView, 2);
+            Utility.setListViewHeightBasedOnChildren(gridView);
         }
     }
 

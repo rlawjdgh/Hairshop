@@ -27,5 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update_complete" parameterType="vo.ReservationVO">
 		update reservation set complete = 2 where reservation_idx = #{ reservation_idx }
 	</update>  
+ 	
+ 	<select id="get_findReview" resultType="vo.ReservationVO">
+		select * from reservation where staff_idx = #{staff_idx}   
+	</select> 
  
 </mapper>     
